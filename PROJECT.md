@@ -1,20 +1,40 @@
 # PROJECT MANAGEMENT
 
+
+## TODO
+- [ ] Interface Bootstrap + validateur w3c (1 seul fichier css)
+- [ ] Algo - doc : décrire 2 versions : boucles natives for/while VS foreach/filter/map/reduce (+PDF Fiche)
+- [ ] Algo - doc : algorigramme
+- [ ] Algo - implémentation : 2 branches (+PDF Cas utilisation) - search tag (même version) - modules export/import, filtres : ingrédients, titre, ustensiles
+- [ ] Algo - performances (uniquement la recherche principale, pas les filtres): Jsben.ch, console.time / console.timeEnd()
+- [ ] Algo - doc : ajouter résultats perf et recommandation
+
+
 ## Resources
+
+### Algorithmie
 - Cours OC : https://openclassrooms.com/fr/courses/4366701-decouvrez-le-fonctionnement-des-algorithmes
-- Créer un algorigrame : https://www.youtube.com/watch?v=fuF1n6__h1A
 - Algo de tri (7min) : https://www.jesuisundev.com/comprendre-les-algorithmes-de-tri-en-7-minutes/
 - Algo de tri : https://interstices.info/les-algorithmes-de-tri/
 - Js array : https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array
-- Cours OC Boostrap : https://openclassrooms.com/fr/courses/6391096-creez-des-sites-web-responsive-avec-bootstrap-4
+- Créer un algorigrame : https://www.youtube.com/watch?v=fuF1n6__h1A
+- Algorigramme : https://app.diagrams.net/
+- Algo performances : https://jsben.ch/
 
- ## Projet
- - recipes.json
- - étapes clés.pdf
- - fiche fonctionnalités.pdf
- - https://www.figma.com/file/xqeE1ZKlHUWi2Efo8r73NK/UI-Design-Les-Petits-Plats-FR?node-id=0%3A1
- - https://app.diagrams.net/
- - https://jsben.ch/
+### Bootstrap
+- Cours OC : https://openclassrooms.com/fr/courses/7542506-creez-des-sites-web-responsives-avec-bootstrap-5
+- Thèmes : https://themes.getbootstrap.com/
+- Doc : https://getbootstrap.com/docs/5.2/getting-started/introduction/
+- Icônes : https://icons.getbootstrap.com/
+
+## Projet
+- recipes.json
+- fiche cas d'utilisation.pdf
+- fiche fonctionnalités.pdf
+- https://www.figma.com/file/xqeE1ZKlHUWi2Efo8r73NK/UI-Design-Les-Petits-Plats-FR?node-id=0%3A1
+- https://app.diagrams.net/
+- https://jsben.ch/
+
 
  ## Livrables
 - Projet7_abel_jerome.zip :
