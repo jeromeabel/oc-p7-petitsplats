@@ -1,16 +1,21 @@
 # PROJECT MANAGEMENT
 
 ## QUESTIONS
-- grid : ajouter des rows (toutes les 3 cards) + col ???
+- Bootstrap - formulaire + icône loupe
+- Bootstrap - grid : ajouter des rows (toutes les 3 cards) + col 
+- Bootstrap - dropdown : même container ?
+- Algo - fonctionnalité algo 1 VS algo 2 ?
+- Algo - tags : cliquer / keyboard, liste d'ingrédients ?
+
 
 ## TODO
-- [x] Interface Bootstrap 90% + validateur w3c
-- [ ] Interface Bootstrap 10% : filters
-- [ ] Algo - doc : décrire 2 versions : boucles natives for/while VS foreach/filter/map/reduce (+PDF Fiche)
-- [ ] Algo - doc : algorigramme
-- [ ] Algo - implémentation : 2 branches (+PDF Cas utilisation) - search tag (même version) - modules export/import, filtres : ingrédients, titre, ustensiles
+- [x] Interface Bootstrap 80% + validateur w3c
+- [ ] Interface Bootstrap 20% : Tags
+- [x] Algo - doc : décrire 2 versions : boucles natives for/while VS foreach/filter/map/reduce (+PDF Fiche)
+- [x] Algo - doc : algorigramme
+- [ ] Algo - implémentation : 2 branches (+PDF Cas utilisation) - search tag (même version)
 - [ ] Algo - performances (uniquement la recherche principale, pas les filtres): Jsben.ch, console.time / console.timeEnd()
-- [ ] Algo - doc : ajouter résultats perf et recommandation
+- [ ] Algo - doc : mise à jour, algorigrame, résultats perf et recommandations
 
 ## Resources
 
