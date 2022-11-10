@@ -55,55 +55,93 @@
                 </div>
             </section>
 
+
+
+            <!-- Selected filters -->
+            <section class="mt-4 d-flex">
+
+
+                <div class="bg-primary px-2 py-1 rounded text-white d-flex align-items-center justify-content-between">
+                    <span class="fs-6">Coco</span>
+                    <button class="btn ms-3 p-0 text-white">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
+            </section>
+
+
             <!-- Filters-->
-            <section class="row mt-4">
-                <!-- Selected filters -->
-                <div class="row"></div>
+            <section class="mt-4 d-flex gap-3 fs-4">
+                
 
 
-                <div class="row">
-
-                <div class="col btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" 
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Ingrédients
+                <div class="dropdown">
+                    <button class="btn btn-primary p-3 rounded" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" id="filter1">
+                        Ingrédients
+                        <i class="bi bi-chevron-down ms-3"></i>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" aria-labelledby="filter1">
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
 
-                <div class="col btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle" 
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Appareils
+                <div class="dropdown">
+                    <button class="btn btn-success p-3 rounded" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" id="filter2">
+                        Appareils
+                        <i class="bi bi-chevron-down ms-3"></i>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" aria-labelledby="filter2">
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
 
-                <div class="col btn-group">
-                    <button type="button" class="btn btn-danger dropdown-toggle" 
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Ustensiles
+                <div class="dropdown">
+                    <button class="btn btn-danger p-3 rounded" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" id="filter3">
+                        Ustensiles
+                        <i class="bi bi-chevron-down ms-3"></i>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" aria-labelledby="filter3">
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
-            </div>
 
             </section>
 
             <!-- Results grid-->
-            <section>
+            <section class="row mt-4">
+
+
+                <div class="card p-0 col-4" >
+                    <img class="card-img-top" src="./logo/300x200.png" alt="Card image">
+                    <div class="card-body">
+                        <div class="row">
+                            <h4 class="col-8 card-title">Limonade de Coco</h4>
+                            <p class="col fw-bold text-end"><i class="bi bi-clock"></i> 10 min</p>
+                        </div>
+                        <div class="row fs-6">
+                            <ul class="col list-unstyled">
+                                <li><span class="fw-bold">Lait de coco:</span> 400ml</li>
+                                <li><span class="fw-bold">Jus de citron:</span> 2</li>
+                                    <li><span class="fw-bold">Créme de coco:</span> 4 cuillères</li>
+                                        <li><span class="fw-bold">Sucre:</span> 20g</li>
+                                            <li><span class="fw-bold">Glaçons:</span> 2</li>
+                            </ul>
+                            <p class="col card-description">
+                                Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2
+citrons et le sucre. Mixer jusqu'à ...
+                            </p>
+                        </div>
+                    </div>
+                  </div>
 
             </section>
         </div>
