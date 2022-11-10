@@ -1,7 +1,11 @@
 # PROJECT MANAGEMENT
 
+## QUESTIONS
+- grid : ajouter des rows (toutes les 3 cards) + col ???
+
 ## TODO
-- [ ] Interface Bootstrap + validateur w3c (1 seul fichier css)
+- [x] Interface Bootstrap 90% + validateur w3c
+- [ ] Interface Bootstrap 10% : filters
 - [ ] Algo - doc : décrire 2 versions : boucles natives for/while VS foreach/filter/map/reduce (+PDF Fiche)
 - [ ] Algo - doc : algorigramme
 - [ ] Algo - implémentation : 2 branches (+PDF Cas utilisation) - search tag (même version) - modules export/import, filtres : ingrédients, titre, ustensiles

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -34,6 +34,7 @@
 
 <body>
 
+    <!-- HEADER -->
     <header class="mt-4 text-center">
         <div class="container">
             <img src="./logo/logo-50px.png" alt="Logo Les petits plats">
@@ -44,10 +45,10 @@
     <main>
         <div class="container">
 
-            <!-- Search form-->
-            <section class="row mt-4">
-                <div class="input-group col-12  ">
-                    <input type="text" class="form-control form-control-lg bg-light border-0  p-3"
+            <!-- SEARCH -->
+            <section class="mt-4">
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-lg bg-light border-0 p-3"
                         placeholder="Rechercher une recette" aria-label="Rechercher une recette">
                     <span class="input-group-text bg-light border-0 fs-4 p-3">
                         <i class="bi bi-search"></i>
@@ -55,11 +56,8 @@
                 </div>
             </section>
 
-
-
             <!-- Selected filters -->
             <section class="mt-4 d-flex">
-
 
                 <div class="bg-primary px-2 py-1 rounded text-white d-flex align-items-center justify-content-between">
                     <span class="fs-6">Coco</span>
@@ -69,11 +67,8 @@
                 </div>
             </section>
 
-
             <!-- Filters-->
             <section class="mt-4 d-flex gap-3 fs-4">
-                
-
 
                 <div class="dropdown">
                     <button class="btn btn-primary p-3 rounded" type="button" data-bs-toggle="dropdown"
@@ -116,11 +111,10 @@
 
             </section>
 
-            <!-- Results grid-->
+            <!-- GRID -->
             <section class="row mt-4">
 
-
-                <div class="card p-0 col-4" >
+                <div class="card p-0 col-4">
                     <img class="card-img-top" src="./logo/300x200.png" alt="Card image">
                     <div class="card-body">
                         <div class="row">
@@ -131,17 +125,18 @@
                             <ul class="col list-unstyled">
                                 <li><span class="fw-bold">Lait de coco:</span> 400ml</li>
                                 <li><span class="fw-bold">Jus de citron:</span> 2</li>
-                                    <li><span class="fw-bold">Créme de coco:</span> 4 cuillères</li>
-                                        <li><span class="fw-bold">Sucre:</span> 20g</li>
-                                            <li><span class="fw-bold">Glaçons:</span> 2</li>
+                                <li><span class="fw-bold">Créme de coco:</span> 4 cuillères</li>
+                                <li><span class="fw-bold">Sucre:</span> 20g</li>
+                                <li><span class="fw-bold">Glaçons:</span> 2</li>
                             </ul>
                             <p class="col card-description">
-                                Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2
-citrons et le sucre. Mixer jusqu'à ...
+                                Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le
+                                jus de 2
+                                citrons et le sucre. Mixer jusqu'à ...
                             </p>
                         </div>
                     </div>
-                  </div>
+                </div>
 
             </section>
         </div>
@@ -153,9 +148,10 @@ citrons et le sucre. Mixer jusqu'à ...
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
+
 </body>
 
 </html>
