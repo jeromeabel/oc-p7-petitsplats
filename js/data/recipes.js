@@ -1,4 +1,6 @@
-const recipes = [
+// Recipes data store in an array
+
+export const recipes = [
     {
         "id": 1,
         "name" : "Limonade de Coco",
@@ -1724,5 +1726,3 @@ const recipes = [
         "ustensils":["rouleau à patisserie","fouet"]
     }
 ]
-
-export default recipes;

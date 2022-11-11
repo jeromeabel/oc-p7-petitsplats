@@ -1,4 +1,0 @@
-class Ingredient {
-    constructor(data) {
-    }
-}

@@ -1,9 +1,9 @@
 // Import modules
-import recipes from "../data/recipes.js";
-import Card from "../templates/Card.js";
-import Tag from "../templates/Tag.js";
+import recipes from "./data/recipes.js";
+import Card from "./components/Card.js";
+import Tag from "./components/Tag.js";
 
-class Index {
+const index = function() {
 
     constructor(_recipes){
         // DOM
@@ -118,5 +118,5 @@ class Index {
     }
 }
 
-const index = new Index(recipes);
-index.main();
+// const index = new Index(recipes);
+// index.main();
