@@ -1,25 +1,50 @@
 // Import modules
 import recipes from "../data/recipes.js";
 import Card from "../templates/Card.js";
+import Tag from "../templates/Tag.js";
 
 class Index {
 
     constructor(_recipes){
         // DOM
-        this.$wrapperRecipes = document.getElementById("grid");
         this.$searchInput = document.getElementById("search");
+        this.$wrapperHelpMessage = document.getElementById("message");
+        this.$wrapperRecipes = document.getElementById("grid");
+        this.$wrapperTags = document.getElementById("tags");
 
         // Data
         this.recipes = _recipes;
         this.currentRecipes = _recipes;
+        this.ingredients = [];
+        this.ustensils = [];
+        this.appliances = [];
     }
+
+    setTags() {
+        for (let recipe of this.currentRecipes) {
+            this.appliances.push(recipe.appliance);
+
+            for (let ingredient of recipe.ingredients) {
+                this.ingredients.push(ingredient.ingredient);
+            }
+
+            for (let ustensil of recipe.ustensils) {
+                this.ustensils.push(ustensil);
+            }
+        }
+    }
+
+    displayTags(){
+        this.$wrapperTags.appendChild(Tag.create("Ingredients", this.ingredients));
+    }
+
 
     setListeners() {
         const that = this;
 
         // Search Recipes
         this.$searchInput.addEventListener("input", (e) => {
-            
+
             // Regex : Greater than 3 characters
             const regexChar = /^[A-ÿ]{3,}[A-ÿ\-\s]*$/;
             const searchTerms = e.target.value.toLowerCase().trim();
@@ -29,11 +54,11 @@ class Index {
         
                 // No founded recipes
                 if (that.currentRecipes.length === 0 ) {
-                    that.displayMessage("Aucune recette ne correspond à votre recherche ...");
+                    that.displayHelpMessage();
                     return;
                 }
 
-                that.displayMessage("");
+                that.hideHelpMessage();
                 that.displayCurrentRecipes();
             }
         });
@@ -64,8 +89,24 @@ class Index {
         return foundRecipes;
     }
 
-    displayMessage(msg) {
-        console.log(msg);
+    displayHelpMessage() {
+        this.$wrapperHelpMessage.classList.replace("d-none", "d-block");
+        const msg = `
+                    <i class="bi bi-exclamation-circle"></i> 
+                    Aucune recette ne correspond à votre recherche ...
+                    Veuillez essayer "Soupe", "Tarte", ...`
+        this.$wrapperHelpMes
+        /*
+        <ul class="dropdown-menu bg-primary" aria-labelledby="filter1">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+        */sage.innerHTML = msg;
+    }
+
+    hideHelpMessage() {
+        this.$wrapperHelpMessage.classList.replace("d-block", "d-none");
     }
 
     displayCurrentRecipes() {
@@ -76,6 +117,8 @@ class Index {
     main() {
         this.displayCurrentRecipes();
         this.setListeners();
+        this.setTags();
+        this.displayTags();
     }
 }
 
