@@ -2,7 +2,7 @@ class Card {
 
     static create(recipe) {
         const $wrapper = document.createElement("div");
-        $wrapper.classList.add("card", "p-0", "col-4");
+        $wrapper.classList.add("card");//, "p-0", "col-4");
 
         // Image
         const $img = document.createElement("img");
@@ -20,14 +20,14 @@ class Card {
         $divHeader.classList.add("row");
         const titleHtml = `
         <h4 class="col-8 card-title">${recipe.name}</h4>
-        <p class="col fw-bold text-end"><i class="bi bi-clock"></i> ${recipe.time} min</p>            
+        <p class="col-4 fs-5 fw-bold text-end"><i class="bi bi-clock"></i> ${recipe.time} min</p>            
          `;
         $divHeader.innerHTML = titleHtml;
         $divBody.appendChild($divHeader);
 
         // Ingredients
         const $divIng = document.createElement("div");
-        $divIng.classList.add("row", "fs-6");
+        $divIng.classList.add("row");
         $divBody.appendChild($divIng);
 
         const $ulIng = document.createElement("ul");
@@ -56,7 +56,7 @@ class Card {
 
         // Description
         const $descIng = document.createElement("p");
-        $descIng.classList.add("col", "card-description", "text-truncate");
+        $descIng.classList.add("col", "card-description");
         $descIng.textContent = recipe.description;
         $divIng.appendChild($descIng);
 

@@ -10,6 +10,16 @@ h1 {
 
 .card-description {
     font-family: "Roboto", sans-serif;
+    /*white-space: nowrap; */
+    overflow: hidden;
+    height:155px;
+    text-overflow: ellipsis;
+    font-size:0.8em;
+}
+
+.card {
+    width:32%;
+    font-size:0.9em;
 }
 
 
