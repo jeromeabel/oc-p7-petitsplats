@@ -2,7 +2,6 @@ body {
     font-family: "Lato", sans-serif;
 }
 
-
 h1 {
     font-family: "DM Sans", sans-serif;
     color: #D04F4F;
@@ -18,7 +17,7 @@ h1 {
 }
 
 .card {
-    width:32%;
+    width:30%;
     font-size:0.9em;
 }
 

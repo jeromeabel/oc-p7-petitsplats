@@ -1,13 +1,5 @@
 # PROJECT MANAGEMENT
 
-## QUESTIONS
-- Bootstrap - formulaire + icône loupe
-- Bootstrap - grid : ajouter des rows (toutes les 3 cards) + col 
-- Bootstrap - dropdown : même container ?
-- Algo - fonctionnalité algo 1 VS algo 2 ?
-- Algo - tags : cliquer / keyboard, liste d'ingrédients ?
-
-
 ## TODO
 - [x] Interface Bootstrap 80% + validateur w3c
 - [ ] Interface Bootstrap 20% : Tags
