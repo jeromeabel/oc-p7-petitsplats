@@ -13,8 +13,8 @@ class Index {
         this.$wrapperTags = document.getElementById("tags");
 
         // Data
-        this.recipes = _recipes;
-        this.currentRecipes = _recipes;
+        this.recipes = [..._recipes]; // Clone
+        this.currentRecipes = [..._recipes]; // Clone
         this.ingredients = [];
         this.ustensils = [];
         this.appliances = [];
@@ -61,14 +61,16 @@ class Index {
                 that.hideHelpMessage();
                 that.displayCurrentRecipes();
             }
+
+            // input à zéro : clear filters + hideHElpMessage
         });
     }
 
-    getCurrentRecipes(searchTerms) {
-        // Méthode avec "for"
+    // ALGO V1 : méthode avec "for"
+    getCurrentRecipes(searchTerms) { // Helpers ?
         let foundRecipes = [];
     
-        for (let recipe of this.recipes) {
+        for (let recipe of this.recipes) { // variable globale
             const name = recipe.name.toLowerCase().trim();
             const description = recipe.description.toLowerCase().trim();
     
@@ -85,7 +87,6 @@ class Index {
                 }
             }
         }
-    
         return foundRecipes;
     }
 
@@ -95,14 +96,7 @@ class Index {
                     <i class="bi bi-exclamation-circle"></i> 
                     Aucune recette ne correspond à votre recherche ...
                     Veuillez essayer "Soupe", "Tarte", ...`
-        this.$wrapperHelpMes
-        /*
-        <ul class="dropdown-menu bg-primary" aria-labelledby="filter1">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-        */sage.innerHTML = msg;
+        this.$wrapperHelpMessage.innerHTML = msg;
     }
 
     hideHelpMessage() {
@@ -117,6 +111,8 @@ class Index {
     main() {
         this.displayCurrentRecipes();
         this.setListeners();
+
+        // Tags
         this.setTags();
         this.displayTags();
     }

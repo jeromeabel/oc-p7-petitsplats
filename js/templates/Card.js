@@ -1,8 +1,28 @@
 class Card {
 
+    /*
+    const ingredients = getIngredients(ing);
+
+    const html = 
+    `<div class="card">
+        // name
+        ${ingredients}
+       // description
+    </div>`;
+
+    return html;
+    */
+
+    createIngredients(ingredients) {
+        const html = ` `;
+
+        return html;
+    }
+
+
     static create(recipe) {
         const $wrapper = document.createElement("div");
-        $wrapper.classList.add("card");//, "p-0", "col-4");
+        $wrapper.classList.add("card");
 
         // Image
         const $img = document.createElement("img");
@@ -19,9 +39,9 @@ class Card {
         const $divHeader = document.createElement("div");
         $divHeader.classList.add("row");
         const titleHtml = `
-        <h4 class="col-8 card-title">${recipe.name}</h4>
-        <p class="col-4 fs-5 fw-bold text-end"><i class="bi bi-clock"></i> ${recipe.time} min</p>            
-         `;
+            <h4 class="col-8 card-title">${recipe.name}</h4>
+            <p class="col-4 fs-5 fw-bold text-end"><i class="bi bi-clock"></i> ${recipe.time} min</p>            
+        `;
         $divHeader.innerHTML = titleHtml;
         $divBody.appendChild($divHeader);
 
@@ -35,6 +55,9 @@ class Card {
         $divIng.appendChild($ulIng);
 
         for (let ingredient of recipe.ingredients) {
+
+            const html = ` `
+
             const eltIng = document.createElement("li");
             const eltSpan = document.createElement("span");
             eltSpan.classList.add("fw-bold");
