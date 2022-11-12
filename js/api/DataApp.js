@@ -37,6 +37,7 @@ export class DataApp {
 
         DataApp.fillAppliances();
         DataApp.fillUstensils();
+        DataApp.fillIngredients();
     }
 
     static fillAppliances(){
@@ -52,8 +53,16 @@ export class DataApp {
                 return recipe.ustensils.map( 
                     (ustensil) => ustensil.toLowerCase().trim())
                 });
-
         DataApp.ustensils = new Set(ustensils.flat().sort());
+    }
+
+    static fillIngredients(){
+        const ingredients =  DataApp.recipes.map( 
+            (recipe) => {
+                return recipe.ingredients.map( 
+                    (ingredient) => ingredient.ingredient.toLowerCase().trim())
+                });
+        DataApp.ingredients = new Set(ingredients.flat().sort());
     }
 
 }
