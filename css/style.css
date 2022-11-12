@@ -5,15 +5,16 @@ body {
 h1 {
     font-family: "DM Sans", sans-serif;
     color: #D04F4F;
-} 
+}
 
 .card-description {
     font-family: "Roboto", sans-serif;
     /*white-space: nowrap; */
+    /*max-height:55px;*/
+
     overflow: hidden;
-    max-height:55px;
     text-overflow: ellipsis;
-    font-size:0.8em;
+    font-size: 0.8em;
     max-width: 100px;
 }
 
@@ -22,10 +23,9 @@ h1 {
 } */
 
 .card {
-    width:30%;
-    min-width:300px;
-    font-size:0.9em;
-}
+    width: 30%;
+    min-width: 300px;
+
 
 
 /*

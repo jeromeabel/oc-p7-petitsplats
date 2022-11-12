@@ -1,20 +1,18 @@
-import { DataApp } from "./api/DataApp.js";
+import { Data } from "./data/Data.js";
+import { Search } from "./components/Search.js";
+import { Recipes } from "./components/Recipes.js";
 
 /**
  * Main application
  */
 const app = () => {
-    // 1 - Get Data
-    DataApp.init();
-    console.log(DataApp.ustensils);
-    // 3 - SearchInput
+    // Get Data
+    const data = new Data();
 
-
-    // Filters
-    
-    // Tags
-
-    // Recipes
+    // Render components
+    new Search().render();
+    //new Filter('ingredients', data.ingredients).render();
+    new Recipes(data.recipes).render();
 };
 
 document.addEventListener("DOMContentLoaded", app);
