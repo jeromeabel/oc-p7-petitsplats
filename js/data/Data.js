@@ -3,11 +3,16 @@ import { recipes } from "./recipes.js";
 /*
  * 
  */
+
 export class Data {
 
+    //static RECIPES = []
+
     constructor() {
-        this.recipes = recipes;
-        this.update(this.recipes);
+        Data.RECIPES = recipes;
+        //this.initRecipes = recipes;
+        this.currentRecipes = [];
+        this.update(Data.RECIPES);
     }
 
     update(_recipes) {

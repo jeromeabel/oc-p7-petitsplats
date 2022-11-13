@@ -1,24 +1,19 @@
 export class Recipes {
 
-    constructor(recipes) {
+    constructor() {
         this.$wrapper = document.querySelector('[data-wrapper="recipes"]');
-        this.update(recipes);
     }
 
-    update(recipes) {
+    render(_recipes) {
         this.$wrapper.innerHTML = "";
-        this.recipes = recipes.map((recipe) => new Recipe(recipe));
-        this.render();
-    }
-
-    render() {
-        this.recipes.forEach(
-            (recipe) => this.$wrapper.appendChild(recipe.render())
+        const cards = _recipes.map((recipe) => new RecipeCard(recipe));
+        cards.forEach(
+            (card) => this.$wrapper.appendChild(card.render())
         );
     }
 }
 
-class Recipe {
+class RecipeCard {
 
     constructor(data) {
         this.id = data.id;

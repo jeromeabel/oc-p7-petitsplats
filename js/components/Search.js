@@ -2,7 +2,6 @@ export class Search {
 
     constructor() {
         this.$wrapper = document.querySelector('[data-wrapper="search"]');
-        this.render();
     }
 
     render() {
@@ -15,7 +14,9 @@ export class Search {
                 </span>
             </div>
             <div data-wrapper="error" class="text-danger p-2 d-none">
-                Pas de recettes ...
+                <i class="bi bi-exclamation-circle"></i> 
+                    Aucune recette ne correspond à votre recherche ...
+                    Veuillez essayer "Soupe", "Tarte", ...
             </div>
         `;
 
@@ -23,15 +24,16 @@ export class Search {
         this.$error = document.querySelector('[data-wrapper="error"]');
     }
     
-    getElement() {
+    get $() {
         return document.querySelector('[data-input="search"]');
     }
 
-    displayError() {
+    showError() {
         this.$error.classList.replace("d-none", "d-block");
     }
 
-    clearError() {
+    hideError() {
         this.$error.classList.replace("d-block", "d-none");
     }
+
 }
