@@ -7,7 +7,11 @@ export class Data {
 
     constructor() {
         this.recipes = recipes;
-        this.currentRecipes = [...recipes];
+        this.update(this.recipes);
+    }
+
+    update(_recipes) {
+        this.currentRecipes = [..._recipes];
         this.ingredients = this.getIngredients(this.currentRecipes) ;
         this.appliances = this.getAppliances(this.currentRecipes);
         this.ustensils = this.getUstensils(this.currentRecipes);

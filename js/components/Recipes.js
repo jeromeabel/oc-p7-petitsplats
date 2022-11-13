@@ -1,9 +1,14 @@
 export class Recipes {
 
     constructor(recipes) {
-        //this.recipes = _recipes;
-        this.$wrapper = document.getElementById("recipes");
+        this.$wrapper = document.querySelector('[data-wrapper="recipes"]');
+        this.update(recipes);
+    }
+
+    update(recipes) {
+        this.$wrapper.innerHTML = "";
         this.recipes = recipes.map((recipe) => new Recipe(recipe));
+        this.render();
     }
 
     render() {
@@ -13,9 +18,10 @@ export class Recipes {
     }
 }
 
-export class Recipe {
+class Recipe {
 
     constructor(data) {
+        this.id = data.id;
         this.name = data.name;
         this.time = data.time;
         this.description = data.description;
@@ -24,6 +30,7 @@ export class Recipe {
         // DOM
         this.$wrapper = document.createElement("div");
         this.$wrapper.classList.add("card");
+        this.$wrapper.setAttribute("data-id", this.id);
     }
 
     renderIngredients() {
@@ -33,6 +40,7 @@ export class Recipe {
             if (ingredient.quantity) html += `: ${ingredient.quantity}`
             if (ingredient.unit) html += ` ${ingredient.unit}`
             html += `</li>`;
+            //${ingredient.quantity || ''} ${ingredient.unit || ''}
         }
         return html;
     }
@@ -40,11 +48,10 @@ export class Recipe {
     renderDescription()  {
         let description = this.description;
         if (this.description.length > 200) {
-            description = this.description.slice(0,200) + "...";
+            description = this.description.slice(0, 200) + "...";
         }
         return description;
     }
-
 
     render() {
         const ingredients = this.renderIngredients();

@@ -9,24 +9,17 @@ h1 {
 
 .card-description {
     font-family: "Roboto", sans-serif;
-    /*white-space: nowrap; */
     /*max-height:55px;*/
-
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 0.8em;
     max-width: 100px;
 }
 
-/* .card-description::after {
-    content:"...";
-} */
-
 .card {
     width: 30%;
     min-width: 300px;
-
-
+}
 
 /*
 vert: #68D9A4
