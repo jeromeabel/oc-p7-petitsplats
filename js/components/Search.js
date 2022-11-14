@@ -7,10 +7,10 @@ export class Search {
     render() {
         const html = `
             <div class="input-group">
-                <input data-input="search" type="text" class="form-control form-control-lg bg-light border-0 p-3"
+                <input data-input="search" type="text" class="form-control rounded form-control-lg bg-light border-0 p-3"
                     placeholder="Rechercher une recette" aria-label="Rechercher une recette">
-                <span class="input-group-text bg-light border-0 fs-4 p-3">
-                    <i class="bi bi-search"></i>
+                <span class="input-group-text rounded bg-light border-0 fs-4 p-3 position-absolute z-index-3 end-0">
+                    <i class="bi bi-search" aria-hidden="true"></i>
                 </span>
             </div>
             <div data-wrapper="error" class="text-danger p-2 d-none">

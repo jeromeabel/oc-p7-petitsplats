@@ -1,29 +1,24 @@
 import { Data } from "./data/Data.js";
 import { Search } from "./components/Search.js";
 import { Recipes } from "./components/Recipes.js";
-// import { Filter } from "./components/Filter.js";
+import { Filters } from "./components/Filters.js";
 import { Algo } from "./helpers/Algo.js";
-
-
-// // Global Variables
-// const data = new Data();
-// const search = new Search();
-// const recipes = new Recipes();
 
 /**
  * Main application
- * */
+ */
 class App {
     constructor() {
         this.data = new Data();
         this.search = new Search();
         //this.tags = new Tags();
-        //this.filters = new Filters();
+        this.filters = new Filters();
         this.recipes = new Recipes();
     }
 
     init() {
         this.search.render();
+        this.filters.render(this.data);
         this.recipes.render(Data.RECIPES);
         this.setEvents();
     }

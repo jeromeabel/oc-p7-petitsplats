@@ -1,3 +1,6 @@
+/*
+ * Add recipes cards to the recipes section
+ */
 export class Recipes {
 
     constructor() {
@@ -53,7 +56,7 @@ class RecipeCard {
         const description = this.renderDescription();
         const html =
             `
-            <img class="card-img-top" src="./images/300x200.png" alt="${this.name}">
+            <img class="card-img-top" src="./images/default.png" alt="${this.name}">
             <div class="card-body">
                 <div class="d-flex gap-2 justify-content-between">
                     <h4 class="card-title">${this.name}</h4>
