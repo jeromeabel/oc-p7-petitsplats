@@ -12,13 +12,13 @@ class App {
         this.data = new Data();
         this.search = new Search();
         //this.tags = new Tags();
-        this.filters = new Filters();
+        this.filters = new Filters(this.data);
         this.recipes = new Recipes();
     }
 
     init() {
         this.search.render();
-        this.filters.render(this.data);
+        this.filters.render();
         this.recipes.render(Data.RECIPES);
         this.setEvents();
     }
@@ -26,6 +26,7 @@ class App {
     render(recipes) {
         this.data.update(recipes);
         this.recipes.render(this.data.currentRecipes);
+        this.filters.update(this.data);
     }
 
     setEvents() {

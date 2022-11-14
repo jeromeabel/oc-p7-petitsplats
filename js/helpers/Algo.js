@@ -22,4 +22,16 @@ export class Algo {
         }
         return foundRecipes;
     }
+
+
+    static findItems(items, searchTerm) {
+        let results = [];
+    
+        for (let item of items) {    
+            if (item.includes(searchTerm)) {
+                results.push(item);
+            }
+        }
+        return results;
+    }
 }

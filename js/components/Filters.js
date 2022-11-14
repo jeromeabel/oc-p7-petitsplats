@@ -1,41 +1,49 @@
+import { Algo } from "../helpers/Algo.js";
+
 export class Filters {
 
-    constructor() {
+    constructor(data) {
         this.$wrapper = document.querySelector('[data-wrapper="filters"]');
 
         this.filters = [
-            new Filter('Ingrédients', 'ingredients'),
-            new Filter('Ustensiles', 'ustensils'),
-            new Filter('Appareils', 'appliances')
+            new Filter('Ingrédients', 'ingredients', data),
+            new Filter('Ustensiles', 'ustensils', data),
+            new Filter('Appareils', 'appliances', data)
         ]
     }
 
-    render(data){
+    render(){
         this.filters.forEach( (filter) => {
-            const elt = filter.render(data[filter.category]);
+            const elt = filter.render();
             this.$wrapper.appendChild(elt);
             filter.setEvent();
+        });
+    }
+
+    update(data) {
+        this.filters.forEach( (filter) => {
+            filter.update(data[filter.category])
         });
     }
 
 }
 
 class Filter {
-    constructor(title, category) {
+    constructor(title, category, data) {
         this.title = title;
         this.category = category;
-
+        this.items = data[category];
+        this.currentItems = this.items;
         this.$wrapper = document.createElement('div');
         this.$wrapper.classList.add(`filter-${this.category}`, 'text-white', 'filter', 'rounded','p-3' );
     }
 
 
-    render(_items) {
-
+    render() {
         this.$wrapper.innerHTML = "";
 
         let items = "";
-        _items.forEach( (item) => {
+        this.currentItems.forEach( (item) => {
             items += `<li><button class='btn bg-transparent text-white text-start'>${item}</button></li>`;
         });
          
@@ -54,8 +62,11 @@ class Filter {
                     <i class="bi bi-chevron-down ms-3"></i>
                 </button>
             </div>
-            <div data-body="${this.category}" class="filters__body d-none">
-                <ul class="filters__list list-unstyled">
+            <div 
+                data-body="${this.category}" 
+                class="filters__body d-none">
+                <ul 
+                    class="filters__list list-unstyled">
                     ${items}
                 </ul>
             </div>
@@ -64,12 +75,32 @@ class Filter {
         return this.$wrapper;
     }
 
+
+    update(items) {
+        this.items = items
+        this.renderList(items)
+    }
+
+    renderList(items) {
+        //console.log(items);
+        this.currentItems = items;
+        this.$ul.innerHTML = "";
+        let htmlItems = "";
+        this.currentItems.forEach( (item) => {
+            htmlItems += `<li><button class='btn bg-transparent text-white text-start'>${item}</button></li>`;
+        });
+        this.$ul.innerHTML = htmlItems;
+    }
+
     setEvent() {
         this.$body = document.querySelector(`[data-body="${this.category}"]`);
+        this.$ul = this.$body.querySelector("ul");
         this.$btn = document.querySelector(`[data-open="${this.category}"]`);
         this.$ = document.querySelector(`[data-input="${this.category}"]`);
+
         this.$btn.addEventListener("click", this.toggle.bind(this));
         this.$.addEventListener("click", this.toggle.bind(this));
+        this.$.addEventListener("input", this.search.bind(this));
     } 
 
     toggle() {
@@ -82,6 +113,19 @@ class Filter {
             this.$.classList.replace('opacity-100', 'opacity-50');
             this.$.setAttribute('placeholder', `Recherchez des ${this.title}`);
         }
+    }
+
+    search(e) {
+        const regexSearch = /^[A-ÿ]{1,}[A-ÿ\-\s]*$/; // At least 1 characters
+        const searchTerms = e.target.value.toLowerCase().trim();
+
+        let results = [];
+        if (searchTerms.length === 0) {
+            results = this.items;
+        } else if (regexSearch.test(searchTerms)) {
+            results = Algo.findItems(this.items, searchTerms);
+        }
+        this.renderList(results);
     }
 
 }

@@ -36,7 +36,10 @@ class RecipeCard {
         for (let ingredient of this.ingredients) {
             html += `<li><span class="fw-bold">${ingredient.ingredient}</span>`;
             if (ingredient.quantity) html += `: ${ingredient.quantity}`
-            if (ingredient.unit) html += ` ${ingredient.unit}`
+            if (ingredient.unit) {
+                if (ingredient.unit === "grammes") html += " g";
+                else html += ` ${ingredient.unit}`;
+            }
             html += `</li>`;
             //${ingredient.quantity || ''} ${ingredient.unit || ''}
         }
