@@ -140,6 +140,22 @@ class App {
         }
 
         this.update(this.algoFoundRecipes());
+
+        this.setRemoveTagsEvent();
+    }
+
+    setRemoveTagsEvent(){
+        this.$tagsUl.querySelectorAll('li')
+        .forEach( 
+            (li) => li.addEventListener("click", this.removeTag.bind(this)
+        ));
+    }
+
+    removeTag(e) {
+        const tag = e.target.textContent.toLowerCase().trim();
+        this.tags = this.tags.filter( t => t !== tag);
+        e.target.remove();
+        this.update(this.algoFoundRecipes());
     }
     
 }
