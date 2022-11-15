@@ -11,7 +11,6 @@ class App {
         this.render();
         this.setEvents();
 
-
         this.tags = [];
         this.searchTerm = "";
         this.ingredientsSearchTerm = "";
@@ -41,26 +40,42 @@ class App {
 
     setEvents(){
         this.$searchInput.addEventListener( 'input' , this.searchRecipes.bind(this));
-
+        this.$ingredientsInput.addEventListener( 'input' , this.searchIngredients.bind(this));
     }
 
     update(recipes) {
         this.recipes = recipes;
         this.ingredients = Data.getIngredients2(recipes);
-
         this.render();
     }
 
     render() {
-        this.renderIngredients();
+        this.renderIngredients(this.ingredients);
         this.renderRecipes();
-
         this.setIngredientsEvent();
     }
 
     searchRecipes(e){
         this.searchTerm = e.target.value.toLowerCase().trim();
         this.update(this.algoFoundRecipes());
+    }
+
+    searchIngredients(e) {
+        const search = e.target.value.toLowerCase().trim();
+        const regexSearch = /^[A-ÿ]{1,}$/; // At least 1 characters
+
+        let results = [];
+        if (search.length === 0) {
+            results = this.ingredients;
+        } else if (regexSearch.test(search)) {
+            for (let ingredient of this.ingredients) {    
+                if (ingredient.includes(search)) {
+                    results.push(ingredient);
+                }
+            }
+        }
+        this.renderIngredients(results);
+        this.setIngredientsEvent();
     }
 
     algoFoundRecipes() {
@@ -115,9 +130,9 @@ class App {
         this.$recipesUl.innerHTML = html;
     }
 
-    renderIngredients(){
+    renderIngredients(ingredients){
         let html = ""
-        for (let ingredient of this.ingredients) {
+        for (let ingredient of ingredients) {
             html += `<li>${ingredient}</li>`; 
         }
         this.$ingredientsUl.innerHTML = html;
@@ -140,8 +155,8 @@ class App {
         }
 
         this.update(this.algoFoundRecipes());
-
         this.setRemoveTagsEvent();
+        this.$ingredientsInput.value = "";
     }
 
     setRemoveTagsEvent(){
@@ -157,6 +172,7 @@ class App {
         e.target.remove();
         this.update(this.algoFoundRecipes());
     }
+
     
 }
 
