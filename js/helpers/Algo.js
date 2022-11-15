@@ -24,6 +24,12 @@ export class Algo {
     }
 
 
+    static findRecipesWithTags(recipes, tags) {
+        let foundRecipes = tags.map ( (tag) => this.findRecipes(recipes, tag) );
+        return new Set(foundRecipes.flat().sort());
+    }
+
+
     static findItems(items, searchTerm) {
         let results = [];
     

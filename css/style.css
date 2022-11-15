@@ -23,6 +23,8 @@ font-size: 1.125rem;} */
 input[data-input="search"]:hover + span i.bi-search {
     transform: scale(1);
 }
+
+
 .bi-search {
     position: absolute;
     top: 0;
@@ -38,7 +40,9 @@ input[data-input="search"]:hover + span i.bi-search {
     cursor: pointer;
 }
 
-
+.bi-x-circle {
+    cursor: pointer;
+}
 
 .card-description {
     font-family: "Roboto", sans-serif;

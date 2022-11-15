@@ -26,6 +26,13 @@ export class Filters {
         });
     }
 
+    get$() {
+        return this.filters.map( (filter) => filter.get$());
+    }
+
+    getFilter(category) {
+        return this.filters.filter( (filter) => filter.category === category )[0];
+    }
 }
 
 class Filter {
@@ -38,13 +45,16 @@ class Filter {
         this.$wrapper.classList.add(`filter-${this.category}`, 'text-white', 'filter', 'rounded','p-3' );
     }
 
+    get$() {
+        return this.$;
+    }
 
     render() {
         this.$wrapper.innerHTML = "";
 
         let items = "";
         this.currentItems.forEach( (item) => {
-            items += `<li><button class='btn bg-transparent text-white text-start'>${item}</button></li>`;
+            items += `<li><button data-tag-add="${item}" class='btn bg-transparent text-white text-start'>${item}</button></li>`;
         });
          
         const html = `
@@ -75,7 +85,6 @@ class Filter {
         return this.$wrapper;
     }
 
-
     update(items) {
         this.items = items
         this.renderList(items)
@@ -87,7 +96,7 @@ class Filter {
         this.$ul.innerHTML = "";
         let htmlItems = "";
         this.currentItems.forEach( (item) => {
-            htmlItems += `<li><button class='btn bg-transparent text-white text-start'>${item}</button></li>`;
+            htmlItems += `<li><button data-tag-add="${item}" class='btn bg-transparent text-white text-start'>${item}</button></li>`;
         });
         this.$ul.innerHTML = htmlItems;
     }
@@ -100,7 +109,7 @@ class Filter {
 
         this.$btn.addEventListener("click", this.toggle.bind(this));
         this.$.addEventListener("click", this.toggle.bind(this));
-        this.$.addEventListener("input", this.search.bind(this));
+        //this.$.addEventListener("input", this.search.bind(this));
     } 
 
     toggle() {
@@ -115,8 +124,9 @@ class Filter {
         }
     }
 
+    /*
     search(e) {
-        const regexSearch = /^[A-ÿ]{1,}[A-ÿ\-\s]*$/; // At least 1 characters
+        const regexSearch = /^[A-ÿ]{1,}$/; // At least 1 characters
         const searchTerms = e.target.value.toLowerCase().trim();
 
         let results = [];
@@ -127,5 +137,6 @@ class Filter {
         }
         this.renderList(results);
     }
+    */
 
 }
