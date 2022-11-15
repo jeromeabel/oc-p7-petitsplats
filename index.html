@@ -46,16 +46,32 @@
         <div class="container">
 
             <!-- Main search -->
-            <section data-wrapper="search" class="mt-4"></section>
+            <section data-wrapper="search" class="mt-4">
+                <input type="text" class="form-control">
+            </section>
 
             <!-- Tags -->
-            <section data-wrapper="tags" class="mt-4 d-flex gap-1 flex-wrap"></section>
+            <section data-wrapper="tags" class="mt-4 d-flex gap-1 flex-wrap">
+                <ul>
+
+                </ul>
+            </section>
 
             <!-- Filters-->
-            <section data-wrapper="filters" class="mt-1 d-flex gap-3"></section>
+            <section data-wrapper="filters" class="mt-1 d-flex gap-3">
+                <div data-wrapper="ingredients" class="w-100">
+                    <input type="text" class="form-control">
+                    <div data-wrapper="ingredients-body">
+                        <ul class="grid">
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
             <!-- Recipes grid -->
-            <section data-wrapper="recipes" class="mt-4 grid"></section>
+            <section data-wrapper="recipes" class="mt-4 grid">
+                <ul class="grid"></ul>
+            </section>
         </div>
     </main>
 

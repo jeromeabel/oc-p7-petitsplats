@@ -29,7 +29,6 @@ export class Algo {
         return new Set(foundRecipes.flat().sort());
     }
 
-
     static findItems(items, searchTerm) {
         let results = [];
     

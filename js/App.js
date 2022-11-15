@@ -1,119 +1,147 @@
-import { Data } from "./data/Data.js";
-import { Search } from "./components/Search.js";
-import { Recipes } from "./components/Recipes.js";
-import { Filters } from "./components/Filters.js";
-import { Tags } from "./components/Tags.js";
-import { Algo } from "./helpers/Algo.js";
+import { recipes } from "./data/recipes.js";
+import { Data } from "./helpers/Data.js";
 
-/**
- * Main application
- */
+const RECIPES = recipes;
+
 class App {
+
     constructor() {
-        this.data = new Data();
-        this.search = new Search();
-        this.tags = new Tags();
-        this.filters = new Filters(this.data);
-        this.recipes = new Recipes();
-    }
-
-    init() {
-        this.search.render();
-        this.filters.render();
-        this.recipes.render(Data.RECIPES);
+        this.setDOM();
+        this.update(RECIPES);
+        this.render();
         this.setEvents();
+
+
+        this.tags = [];
+        this.searchTerm = "";
+        this.ingredientsSearchTerm = "";
     }
 
-    render(recipes) {
-        this.data.update(recipes);
-        this.recipes.render(this.data.currentRecipes);
-        this.filters.update(this.data);
+    setDOM() {
+        // SEARCH
+        this.$searchWrapper = document.querySelector('section[data-wrapper="search"]');
+
+        // TAGS
+        this.$tagsWrapper = document.querySelector('section[data-wrapper="tags"]');
+        this.$tagsUl = this.$tagsWrapper.querySelector('ul');
+
+        // RECIPES
+        this.$recipesWrapper = document.querySelector('section[data-wrapper="recipes"]');
+        this.$recipesUl = this.$recipesWrapper.querySelector('ul');
+
+        // FILTERS
+        this.$ingredientsWrapper = document.querySelector('div[data-wrapper="ingredients"]');
+        this.$ingredientsBody = this.$ingredientsWrapper.querySelector('div[data-wrapper="ingredients-body"]');
+        this.$ingredientsUl = this.$ingredientsBody.querySelector('ul');
+    
+        // INPUTS
+        this.$searchInput = this.$searchWrapper.querySelector('input');
+        this.$ingredientsInput = this.$ingredientsWrapper.querySelector('input');
     }
 
-    setEvents() {
-        this.search.$.addEventListener('input', this.searchRecipes.bind(this));
+    setEvents(){
+        this.$searchInput.addEventListener( 'input' , this.searchRecipes.bind(this));
 
-        this.filters.get$()
-            .forEach( 
-                (input) => input.addEventListener('input', this.filterRecipes.bind(this)
-            ));
+    }
 
-        // Load filters : add Tag
-        document.querySelectorAll('[data-tag-add]')
+    update(recipes) {
+        this.recipes = recipes;
+        this.ingredients = Data.getIngredients2(recipes);
+
+        this.render();
+    }
+
+    render() {
+        this.renderIngredients();
+        this.renderRecipes();
+
+        this.setIngredientsEvent();
+    }
+
+    searchRecipes(e){
+        this.searchTerm = e.target.value.toLowerCase().trim();
+        this.update(this.algoFoundRecipes());
+    }
+
+    algoFoundRecipes() {
+        // Data : RECIPES, searchTerm, Tags
+        let foundRecipes = [];
+        const search = this.searchTerm;
+        const allRecipes = RECIPES;
+        const tags = this.tags;
+        //const names = Data.getNames(recipes);
+        //const ingredients = Data.getIngredients(recipes);
+
+        for (let recipe of allRecipes) {
+            const name = recipe.name.toLowerCase().trim();    
+            if (name.includes(search)) {
+                foundRecipes.push(recipe);
+            }
+            for (let ingredient of recipe.ingredients) {
+                const ingredientName = ingredient.ingredient.toLowerCase().trim();
+                if (ingredientName.includes(search)) {
+                    foundRecipes.push(recipe);
+                }
+            }
+        }
+
+        let foundRecipes2 = [];
+        
+        // Test if all tags are in the ingredients
+        if (tags.length > 0) {
+            //const ingredients = Data.getIngredients(foundRecipes);
+            for (let recipe of foundRecipes) {
+                let count = 0;
+                recipe.ingredients.forEach( (ingredient) => {
+                    const ingredientName = ingredient.ingredient.toLowerCase().trim();
+                    tags.forEach( (tag) => {
+                        if (tag === ingredientName) count++
+                    })
+                });
+                if(count === tags.length) foundRecipes2.push(recipe); 
+            }
+        } else {
+            foundRecipes2 = foundRecipes;
+        }
+
+        return new Set(foundRecipes2.sort());
+    }
+
+    renderRecipes(){
+        let html = ""
+        for (let recipe of this.recipes) {
+            html += `<li>${recipe.name}</li>`; 
+        }
+        this.$recipesUl.innerHTML = html;
+    }
+
+    renderIngredients(){
+        let html = ""
+        for (let ingredient of this.ingredients) {
+            html += `<li>${ingredient}</li>`; 
+        }
+        this.$ingredientsUl.innerHTML = html;
+    }
+
+    setIngredientsEvent() {
+        this.$ingredientsUl.querySelectorAll('li')
         .forEach( 
-            (filter) => filter.addEventListener('click', this.addTag.bind(this)
+            (li) => li.addEventListener("click", this.addTag.bind(this)
         ));
-
-
-        // document.querySelectorAll('[data-tag-remove]')
-        // .forEach( 
-        //     (tag) => tag.addEventListener('click', this.removeTag.bind(this)
-        // ));
-    }
-
-    // ----- Callback Functions ------ //
-    searchRecipes(e) {
-        const regexSearch = /^[A-ÿ]{3,}[A-ÿ\-\s]*$/; // At least 3 characters
-        const searchTerms = e.target.value.toLowerCase().trim();
-        // No characters : show all the recipes
-        if (searchTerms.length === 0) {
-            this.render(Data.RECIPES);
-            this.search.hideError();
-        } else if (regexSearch.test(searchTerms)) {
-            // Valid : show the found recipes
-            const results = Algo.findRecipes(Data.RECIPES, searchTerms);
-            if(results.length !== 0) this.render(results)
-            else this.search.showError();
-        }
-    }
-
-    filterRecipes(e) {
-        const regexSearch = /^[A-ÿ]{1,}$/; // At least 1 characters
-        const searchTerms = e.target.value.toLowerCase().trim();
-        const type = e.target.getAttribute("data-input");
-        const items = this.data[type];
-        let results = [];
-        if (searchTerms.length === 0) {
-            results = items;
-        } else if (regexSearch.test(searchTerms)) {
-            results = Algo.findItems(items, searchTerms);
-        }
-
-        const filter = this.filters.getFilter(type);
-        filter.update(results);
-        const elt = filter.get$().parentElement.parentElement;
-        elt.querySelectorAll('[data-tag-add')
-        .forEach( (tag) => tag.addEventListener('click', this.addTag.bind(this) ))
     }
 
     addTag(e) {
-        const keywords = e.target.textContent;
-        const isAdded = this.tags.add(keywords);
-        if (isAdded) {
+        const tag = e.target.textContent.toLowerCase().trim();
 
-            // Remove callbacks !!!
-            const allCloseTags = this.tags.$.querySelectorAll('[data-tag-remove]');
-            allCloseTags.forEach( (close) => {
-                close.addEventListener('click', (e) => {
-                   const keywords = e.target.getAttribute("data-tag-remove");
-                   this.tags.remove(keywords);
-                   e.target.parentElement.remove();
-                   const results = Algo.findRecipesWithTags(this.data.currentRecipes, this.tags.items);
-                   if(results.length !== 0) this.render(results)
-                })
-            }  )
-
-            const results = Algo.findRecipesWithTags(this.data.currentRecipes, this.tags.items);
-            if(results.length !== 0) this.render(results)
-            else this.render(this.data.currentRecipes());
+        if (!this.tags.includes(tag)) {
+            this.tags.push(tag);
+            const html = `<li>${tag}</li>`;
+            this.$tagsUl.insertAdjacentHTML("beforeend", html);
         }
-    }
 
-    removeTag(e) {
-        //console.log(e.target);
-        //this.tags.remove(e.target.textContent);
+        this.update(this.algoFoundRecipes());
     }
+    
 }
 
 const app = new App();
-app.init();
