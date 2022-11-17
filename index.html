@@ -11,7 +11,8 @@
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
     <!-- Fonts : Lato, Roboto, DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,46 +47,19 @@
         <div class="container">
 
             <!-- Main search -->
-            <section data-wrapper="search" class="mt-4">
-                <input type="text" class="form-control">
+            <section data-app-wrapper="search" class="mt-4">
             </section>
-
-            <hr>
 
             <!-- Tags -->
-            <section data-wrapper="tags" class="mt-4 d-flex gap-1 flex-wrap">
-                <ul class="grid list-unstyled">
-
-                </ul>
+            <section data-app-wrapper="tags" class="mt-4 d-flex gap-1 flex-wrap">
             </section>
 
-            <hr>
             <!-- Filters-->
-            <section data-wrapper="filters" class="mt-1 d-flex gap-3">
-                <div data-wrapper="ingredients" class="w-100 bg-primary">
-                    <div data-wrapper="ingredients-header" class="d-flex">
-                        <h2 class="d-block">Ingrédients</h2>
-                        <input 
-                            type="text" 
-                            class="d-none form-control" 
-                            aria-label="Sizing example input">
-                        <button type="button" class="btn" class="text-end">
-                            <i class="bi bi-chevron-down"></i>
-                        </button>
-                    </div>
-
-                    <div data-wrapper="ingredients-body" class="d-none">
-                        <ul class="grid list-unstyled">
-                        </ul>
-                    </div>
-                </div>
+            <section data-app-wrapper="filters" class="mt-1 d-flex gap-3">
             </section>
-
-            <hr>
 
             <!-- Recipes grid -->
-            <section data-wrapper="recipes" class="mt-4 grid">
-                <ul class="grid list-unstyled"></ul>
+            <section data-app-wrapper="recipes" class="mt-4 grid">
             </section>
         </div>
     </main>

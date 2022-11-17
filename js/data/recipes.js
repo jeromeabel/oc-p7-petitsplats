@@ -1,6 +1,5 @@
-// Recipes data store in an array
-
-export const recipes = [
+// Recipes data stored in an array
+export const RECIPES = [
     {
         "id": 1,
         "name" : "Limonade de Coco",
