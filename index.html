@@ -50,27 +50,42 @@
                 <input type="text" class="form-control">
             </section>
 
+            <hr>
+
             <!-- Tags -->
             <section data-wrapper="tags" class="mt-4 d-flex gap-1 flex-wrap">
-                <ul>
+                <ul class="grid list-unstyled">
 
                 </ul>
             </section>
 
+            <hr>
             <!-- Filters-->
             <section data-wrapper="filters" class="mt-1 d-flex gap-3">
-                <div data-wrapper="ingredients" class="w-100">
-                    <input type="text" class="form-control">
-                    <div data-wrapper="ingredients-body">
-                        <ul class="grid">
+                <div data-wrapper="ingredients" class="w-100 bg-primary">
+                    <div data-wrapper="ingredients-header" class="d-flex">
+                        <h2 class="d-block">Ingrédients</h2>
+                        <input 
+                            type="text" 
+                            class="d-none form-control" 
+                            aria-label="Sizing example input">
+                        <button type="button" class="btn" class="text-end">
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                    </div>
+
+                    <div data-wrapper="ingredients-body" class="d-none">
+                        <ul class="grid list-unstyled">
                         </ul>
                     </div>
                 </div>
             </section>
 
+            <hr>
+
             <!-- Recipes grid -->
             <section data-wrapper="recipes" class="mt-4 grid">
-                <ul class="grid"></ul>
+                <ul class="grid list-unstyled"></ul>
             </section>
         </div>
     </main>

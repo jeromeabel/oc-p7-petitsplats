@@ -19,6 +19,9 @@ class App {
     setDOM() {
         // SEARCH
         this.$searchWrapper = document.querySelector('section[data-wrapper="search"]');
+        // SEARCH - INPUT
+        this.$searchInput = this.$searchWrapper.querySelector('input');
+
 
         // TAGS
         this.$tagsWrapper = document.querySelector('section[data-wrapper="tags"]');
@@ -30,17 +33,23 @@ class App {
 
         // FILTERS
         this.$ingredientsWrapper = document.querySelector('div[data-wrapper="ingredients"]');
+        this.$ingredientsHeader = this.$ingredientsWrapper.querySelector('div[data-wrapper="ingredients-header"]');
+        this.$ingredientsTitle = this.$ingredientsHeader.querySelector('h2');
         this.$ingredientsBody = this.$ingredientsWrapper.querySelector('div[data-wrapper="ingredients-body"]');
         this.$ingredientsUl = this.$ingredientsBody.querySelector('ul');
-    
-        // INPUTS
-        this.$searchInput = this.$searchWrapper.querySelector('input');
+
+        // INGREDIENTS - INPUT
+        this.$ingredientsBtn = this.$ingredientsHeader.querySelector('button');
         this.$ingredientsInput = this.$ingredientsWrapper.querySelector('input');
+        this.$ingredientsBtnIcon = this.$ingredientsBtn.querySelector('i');
+
+
     }
 
     setEvents(){
         this.$searchInput.addEventListener( 'input' , this.searchRecipes.bind(this));
         this.$ingredientsInput.addEventListener( 'input' , this.searchIngredients.bind(this));
+        this.$ingredientsBtn.addEventListener('click', this.toggleIngredients.bind(this));
     }
 
     update(recipes) {
@@ -49,17 +58,35 @@ class App {
         this.render();
     }
 
-    render() {
+    render(recipes) {
         this.renderIngredients(this.ingredients);
         this.renderRecipes();
         this.setIngredientsEvent();
     }
 
+    // ---- CALLBACK
+    toggleIngredients(e) {
+        if (this.$ingredientsBody.classList.contains("d-none")) {
+            this.$ingredientsTitle.classList.replace("d-block", "d-none");
+            this.$ingredientsBody.classList.replace("d-none", "d-block");
+            this.$ingredientsInput.classList.replace("d-none", "d-block");
+            this.$ingredientsBtnIcon.classList.replace("bi-chevron-down", "bi-chevron-up");
+        } else if (this.$ingredientsBody.classList.contains("d-block")) {
+            this.$ingredientsTitle.classList.replace("d-none", "d-block");
+            this.$ingredientsBody.classList.replace("d-block", "d-none");
+            this.$ingredientsInput.classList.replace("d-block", "d-none");
+            this.$ingredientsBtnIcon.classList.replace("bi-chevron-up", "bi-chevron-down");
+        }
+    }
+
+
+    // ---- CALLBACK
     searchRecipes(e){
         this.searchTerm = e.target.value.toLowerCase().trim();
         this.update(this.algoFoundRecipes());
     }
 
+    // --- CALLBACK
     searchIngredients(e) {
         const search = e.target.value.toLowerCase().trim();
         const regexSearch = /^[A-ÿ]{1,}$/; // At least 1 characters
