@@ -59,15 +59,13 @@ class App {
     }
 
     removeTag(e) {
-        console.log(e.target);
-        const tag = e.target.getAttribute("data-app-tag");
-        const type = e.target.getAttribute("data-app-type");
+        const elt = e.target.closest('button');
+        const tag = elt.getAttribute("data-app-tag");
+        const type = elt.getAttribute("data-app-type");
         this.tags.remove(tag, type); 
-        e.target.remove();
+        elt.remove();
         //this.update(this.algoFoundRecipes());
     }
-
-
 
 }
 
