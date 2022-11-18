@@ -4,43 +4,45 @@ export class Search  {
         // DOM
         this.$wrapper = document.querySelector('[data-app-wrapper="search"]');
 
-        // Add search input to the DOM
+        // Add to the DOM
         this.$wrapper.insertAdjacentHTML("afterbegin", this.initDOM());
-
-        // this.$input = document.querySelector('[data-app-event="search"]')
-        // this.$error = document.querySelector('[data-app-wrapper="error"]');
+        this.$input = this.$wrapper.querySelector('input[data-app-event="search"]')
+        this.$error = this.$wrapper.querySelector('div[data-app-wrapper="error"]');
     }
-
-    // setEvent() {
-    //     this.$input.addEventListener("input", (e) => {
-    //         //this.dispatchEvent(new CustomEvent('search', { detail: e.target.value }));
-    //     })
-    // }
 
     initDOM() {
         const html = `
             <div class="input-group input-group-lg bg-light rounded">
-                <input data-app-event="search" type="text" class="form-control rounded bg-transparent border-0"
-                    placeholder="Rechercher une recette" aria-label="Rechercher une recette">
-                <span class="input-group-text position-absolute end-0 bg-transparent border-0 h-100">
-                    <i class="fa-solid fa-magnifying-glass fs-4" aria-hidden="true"></i>
+                <input 
+                    data-app-event="search" 
+                    type="text" 
+                    class="form-control rounded bg-transparent border-0"
+                    placeholder="Rechercher une recette" 
+                    aria-label="Rechercher une recette">
+                <span 
+                    class="input-group-text position-absolute end-0 bg-transparent border-0 h-100">
+                    <i 
+                        class="fa-solid fa-magnifying-glass fs-4" 
+                        aria-hidden="true"></i>
                 </span>
             </div>
-            <div data-app-wrapper="error" class="text-danger p-2 d-none">
+            <div 
+                data-app-wrapper="error" 
+                class="text-danger p-2 d-none">
                 <i class="bi bi-exclamation-circle"></i> 
-                Aucune recette ne correspond à votre recherche... Vous pouvez
-                chercher « tarte aux pommes », « poisson », etc.
+                    Aucune recette ne correspond à votre recherche... Vous pouvez
+                    chercher « tarte aux pommes », « poisson », etc.
             </div>
         `;
         return html;
     }
 
-    // showError() {
-    //     this.$error.classList.replace("d-none", "d-block");
-    // }
+    showError() {
+        this.$error.classList.replace("d-none", "d-block");
+    }
 
-    // hideError() {
-    //     this.$error.classList.replace("d-block", "d-none");
-    // }
+    hideError() {
+        this.$error.classList.replace("d-block", "d-none");
+    }
 
 }

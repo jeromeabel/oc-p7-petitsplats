@@ -4,36 +4,54 @@ import { capitalize } from "../helpers/Data.js";
 export class Tags {
 
     constructor() {
+
         // Data
-        this.tags = [];
+        this.tags = {
+            "ingredients" : [],
+            "ustensils" : [],
+            "appliances" : []
+        }
 
         // DOM
         this.$wrapper = document.querySelector('[data-app-wrapper="tags"]');
-        this.$wrapper.innerHTML = `<ul class="grid list-unstyled"></ul>`;
+        this.$wrapper.innerHTML = `<ul class="d-flex gap-3 list-unstyled"></ul>`;
         this.$ul = this.$wrapper.querySelector('ul');
     }
 
+
+    // Insert tag into the tags depending on type
     add(_tag, _type) {
-        if (!this.tags.includes(_tag)) {
-            this.tags.push(_tag);
+
+        const data = this.tags[_type];
+
+        if (!data.includes(_tag)) {
+            // Add tag
+            data.push(_tag);
+
+            // Add to DOM
             const tagLabel = capitalize(_tag);
+            const $li = document.createElement('li');
+
             const html = `
-            <button 
-                data-app-type=${_type}
-                data-app-tag="${_tag}"
-                data-app-event="remove-tag" 
-                class="btn fw-normal badge fs-6 p-3 ${_type}">
-                ${tagLabel}
-                <i class="ms-3 fa-regular fa-circle-xmark"></i>
-            </button>`;
-            this.$ul.insertAdjacentHTML("beforeend", html);
-            return true
+                <button 
+                    data-app-type=${_type}
+                    data-app-tag="${_tag}"
+                    data-app-event="remove-tag" 
+                    class="badge border-0 fw-normal fs-6 p-3 ${_type}">
+                    ${tagLabel}
+                    <i class="ms-3 fa-regular fa-circle-xmark"></i>
+                </button>
+            `;
+            $li.insertAdjacentHTML("beforeend", html);
+            this.$ul.appendChild($li);
+            return $li;
         }
-        return false;
+        return undefined;
     }
 
     remove(_tag, _type) {
-        this.tags = this.tags.filter( t => t !== _tag);
+        this.tags[_type] = this.tags[_type].filter( t => t !== _tag);
+        //console.log(this.tags)
     }
 
 }

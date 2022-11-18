@@ -68,7 +68,7 @@ class RecipeCard {
                 <div class="d-flex gap-2 justify-content-between">
                     <h4 class="card-title">${this.name}</h4>
                     <p class="fw-bold">
-                        <i class="bi bi-clock"></i> ${this.time} min
+                        <i class="fa-regular fa-clock"></i> ${this.time} min
                     </p>
                 </div>
                 <div class="d-flex gap-2">

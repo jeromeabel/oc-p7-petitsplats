@@ -1,4 +1,4 @@
-import { getRecipesByType, capitalize } from "../helpers/Data.js";
+import { getRecipesByType, capitalize, getNormalizedString } from "../helpers/Data.js";
 import { Algo } from "../helpers/Algo.js";
 
 // -------- FILTERS --------- //
@@ -24,14 +24,12 @@ export class Filters {
 }
 
 // -------- FILTER --------- //
-class Filter extends EventTarget {
+class Filter {
+
     constructor(label, type) {
-
-        super(); // event target
-
         // Data
         this.label = label;
-        this.type = type;
+        this.type = type; // ingredients, ustensils, appliances
         this.items = [];
 
         // DOM
@@ -42,7 +40,7 @@ class Filter extends EventTarget {
 
         this.initDOM();
 
-        // Variables
+        // DOM Variables
         this.$title = this.$wrapper.querySelector('h2');
         this.$body = this.$wrapper.querySelector(`div[data-app-wrapper="filter-body"]`);
         this.$ul = this.$body.querySelector('ul');
@@ -50,9 +48,9 @@ class Filter extends EventTarget {
         this.$icon = this.$btn.querySelector('i');
         this.$input = this.$wrapper.querySelector('input[data-app-event="filter-input"]');
 
+        // Events
         this.initEvents();
     }
-
 
     // ---- DOM ---- //
     initDOM() {
@@ -89,10 +87,11 @@ class Filter extends EventTarget {
     }
 
     render(_items) {
-        this.items = _items; // Update data for search
+        this.items = _items; // Update items for searchItems
         this.renderItems(_items); // Render DOM list of items
     }
 
+    // Update items
     renderItems(_items) {
         // Create list
         let html = "";
@@ -119,7 +118,6 @@ class Filter extends EventTarget {
         this.$input.addEventListener('input', this.searchItems.bind(this));
     }
 
-
     // ----- EVENTS CALLBACKS ----- //
 
     // Hide / show the list of items
@@ -137,9 +135,10 @@ class Filter extends EventTarget {
         }
     }
 
+    // Find and update items according to the search input
     searchItems(e) {
         const regexSearch = /^[A-ÿ]{1,}$/; // At least 1 characters
-        const searchTerms = e.target.value.toLowerCase().trim();
+        const searchTerms = getNormalizedString(e.target.value);
         let results = [];
         if (searchTerms.length === 0) {
             results = this.items;

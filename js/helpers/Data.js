@@ -1,8 +1,12 @@
 // Helpers functions
 
+export function setUniqueValues(_arr) {
+    return new Set(_arr.flat().sort());
+}
+
 // Remove accents and uppercase
 export function getNormalizedString(_str) {
-    return _str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
+    return _str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().trim();
 }
 
 export function capitalize(_str) {
