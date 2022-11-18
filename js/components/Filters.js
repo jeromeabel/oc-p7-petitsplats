@@ -1,66 +1,60 @@
-import { getRecipesByType } from "../helpers/Data.js";
+import { getRecipesByType, capitalize } from "../helpers/Data.js";
+import { Algo } from "../helpers/Algo.js";
 
+// -------- FILTERS --------- //
 export class Filters {
 
     constructor() {
-        // DOM
-        this.$wrapper = document.querySelector('[data-app-wrapper="filters"]');
-
-        // Filters objects : label and type
+        // Data
         this.filters = [
-            new Filter('Ingrédients', 'ingredients'),
+            new Filter('Ingrédients', 'ingredients'), // Label, type
             new Filter('Ustensiles', 'ustensils'),
             new Filter('Appareils', 'appliances')
         ]
-
-        // Add filters to the DOM
-        this.initDOM();
     }
 
-    initDOM() {
-        this.filters.forEach((filter) => {
-            this.$wrapper.appendChild(filter.initDOM());
-            filter.initEvents();
-        });
-    }
-
-    // Add all filters to the container
+    // Render all filters
     render(_recipes) {
         this.filters.forEach((filter) => {
             // Items depends on the filter type
             const items = getRecipesByType(_recipes, filter.type);
-            const filterElt = filter.render(items);
-            //filter.setEvents();
+            filter.render(items);
         });
     }
 }
 
-class Filter {
+// -------- FILTER --------- //
+class Filter extends EventTarget {
     constructor(label, type) {
+
+        super(); // event target
+
         // Data
         this.label = label;
         this.type = type;
+        this.items = [];
 
         // DOM
+        this.$parentWrapper = document.querySelector('[data-app-wrapper="filters"]');
         this.$wrapper = document.createElement('div');
         this.$wrapper.classList.add('filter', this.type, 'text-white', 'rounded', 'p-3');
-    }
+        this.$parentWrapper.appendChild(this.$wrapper);
 
-    initDOMVariables() {
+        this.initDOM();
+
+        // Variables
         this.$title = this.$wrapper.querySelector('h2');
         this.$body = this.$wrapper.querySelector(`div[data-app-wrapper="filter-body"]`);
         this.$ul = this.$body.querySelector('ul');
         this.$btn = this.$wrapper.querySelector('button[data-app-event="filter-toggle"]');
         this.$icon = this.$btn.querySelector('i');
         this.$input = this.$wrapper.querySelector('input[data-app-event="filter-input"]');
+
+        this.initEvents();
     }
 
-    initEvents() {
-        this.initDOMVariables();
-        
-        this.$btn.addEventListener('click', this.toggleVisibility.bind(this));
-    }
 
+    // ---- DOM ---- //
     initDOM() {
         this.$wrapper.innerHTML = "";
 
@@ -92,27 +86,41 @@ class Filter {
             </div>
             `;
         this.$wrapper.innerHTML = html;
-        return this.$wrapper;
     }
 
     render(_items) {
+        this.items = _items; // Update data for search
+        this.renderItems(_items); // Render DOM list of items
+    }
+
+    renderItems(_items) {
+        // Create list
         let html = "";
         _items.forEach((item) => {
+            const itemLabel = capitalize(item);
             html +=
                 `<li>
                     <button 
+                        data-app-type="${this.type}"
+                        data-app-tag="${item}"
                         data-app-event="add-tag"
-                        class="btn bg-transparent text-white">
-                        ${item}
+                        class="btn bg-transparent text-white text-start">
+                        ${itemLabel}
                     </button>
                 </li>`;
         });
         this.$ul.innerHTML = html;
     }
 
-    setEvents() {
+    // ---- EVENTS ---- //
 
+    initEvents() {
+        this.$btn.addEventListener('click', this.toggleVisibility.bind(this));
+        this.$input.addEventListener('input', this.searchItems.bind(this));
     }
+
+
+    // ----- EVENTS CALLBACKS ----- //
 
     // Hide / show the list of items
     toggleVisibility() {
@@ -129,81 +137,15 @@ class Filter {
         }
     }
 
-
-}
-
-
-/*
-
-`filter-${this.type}`
-    // Remove accents and uppercase
-getNormalizeString(_str) {
-    return _str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
-}
-
-
-
-constructor(title, type, data) {
-    this.title = title;
-    this.type = type;
-       }
-
-get$() {
-    return this.$;
-}
-
-
-update(items) {
-    this.items = items
-    this.renderList(items)
-}
-
-renderList(items) {
-    //console.log(items);
-    this.currentItems = items;
-    this.$ul.innerHTML = "";
-    let htmlItems = "";
-    this.currentItems.forEach( (item) => {
-        htmlItems += `<li><button data-tag-add="${item}" class='btn bg-transparent text-white text-start'>${item}</button></li>`;
-    });
-    this.$ul.innerHTML = htmlItems;
-}
-
-setEvent() {
-    this.$body = document.querySelector(`[data-body="${this.category}"]`);
-    this.$ul = this.$body.querySelector("ul");
-    this.$btn = document.querySelector(`[data-open="${this.category}"]`);
-    this.$ = document.querySelector(`[data-input="${this.category}"]`);
-
-    this.$btn.addEventListener("click", this.toggle.bind(this));
-    this.$.addEventListener("click", this.toggle.bind(this));
-    //this.$.addEventListener("input", this.search.bind(this));
-} 
-
-toggle() {
-    if (this.$body.classList.contains("d-block")) {
-        this.$.setAttribute('placeholder', `${this.title}`);
-        this.$.classList.replace('opacity-50', 'opacity-100');
-        this.$body.classList.replace("d-block", "d-none");
-    } else if (this.$body.classList.contains("d-none")) {
-        this.$body.classList.replace("d-none", "d-block");
-        this.$.classList.replace('opacity-100', 'opacity-50');
-        this.$.setAttribute('placeholder', `Recherchez des ${this.title}`);
+    searchItems(e) {
+        const regexSearch = /^[A-ÿ]{1,}$/; // At least 1 characters
+        const searchTerms = e.target.value.toLowerCase().trim();
+        let results = [];
+        if (searchTerms.length === 0) {
+            results = this.items;
+        } else if (regexSearch.test(searchTerms)) {
+            results = Algo.findItems(this.items, searchTerms);
+        }
+        this.renderItems(results);
     }
 }
-
-
-search(e) {
-    const regexSearch = /^[A-ÿ]{1,}$/; // At least 1 characters
-    const searchTerms = e.target.value.toLowerCase().trim();
-
-    let results = [];
-    if (searchTerms.length === 0) {
-        results = this.items;
-    } else if (regexSearch.test(searchTerms)) {
-        results = Algo.findItems(this.items, searchTerms);
-    }
-    this.renderList(results);
-}
-
-*/

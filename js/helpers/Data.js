@@ -1,4 +1,13 @@
-// Format Data
+// Helpers functions
+
+// Remove accents and uppercase
+export function getNormalizedString(_str) {
+    return _str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
+}
+
+export function capitalize(_str) {
+    return _str.charAt(0).toUpperCase() + _str.slice(1)
+}
 
 // Get formatted data by types : ingredients, appliances, ustensils
 export function getRecipesByType(_recipes, type) {
