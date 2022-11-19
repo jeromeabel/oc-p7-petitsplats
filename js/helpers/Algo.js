@@ -3,95 +3,126 @@ import { getNormalizedString, getRecipesByType } from "../helpers/Data.js";
 
 export class Algo {
 
-    // Search keywords into the recipes names, descriptions and ingredients
-    static findRecipesWithSearch(_recipes, _searchTerm) {
+    static getRecipesIntersection( _results1, _results2) {
         let foundRecipes = [];
-        //const searchTerm =  getNormalizedString(_searchTerm);
-
-        for (const recipe of _recipes) {
-            const name = getNormalizedString(recipe.name);
-            const description = getNormalizedString(recipe.description);
-            if (name.includes(_searchTerm)) {
-                foundRecipes.push(recipe);
-            } else if (description.includes(_searchTerm)) {
-                foundRecipes.push(recipe);
-            } else {
-                for (let ingredient of recipe.ingredients) {
-                    const ingName =  getNormalizedString(ingredient.ingredient);
-                    if (ingName.includes(_searchTerm)) {
-                        foundRecipes.push(recipe);
-                    }
-                }
+        for ( const recipe1 of _results1 )  {
+            for ( const recipe2 of _results2 )  {
+                if ( recipe1.id === recipe2.id ) foundRecipes.push(recipe1);
             }
         }
         return foundRecipes;
     }
 
-    static findText(_data, _search) {
-        const data = getNormalizedString(new String(_data));
-        const search = getNormalizedString(new String(_search));
-        return data.includes(search);
-    }
-
-    static findRecipesWithTags(_recipes, _tags) {
+    // Search keywords into the recipes names, descriptions and ingredients
+    static findRecipesWithSearch(_recipes, _searchTerm) {
         let foundRecipes = [];
+        //const searchTerm =  getNormalizedString(_searchTerm);
+        //const searchTerm = _searchTerm.toLowerCase().trim();
 
-        // Look though each type
-        // Find if all the tags are in the current recipe type
-        // Then add it to the results
-
-        const length = _tags['appliances'].length + _tags['ustensils'].length + _tags['ingredients'].length;
-
-        if (length > 0) {
+        if (_searchTerm.length > 0) {
             for (const recipe of _recipes) {
-
-                // Appliances
-                if (_tags['appliances'].length > 0) {
-                    for (const tag of _tags['appliances']) {
-                        let count = 0;
-                        const data = recipe.appliance.toLowerCase().trim();
-                        if (data === tag.toLowerCase().trim()) count++
-                        if (count === _tags['appliances'].length) {
-                            foundRecipes.push(recipe);
-                        }
-                    }
-                }
-
-                // Ustensils
-                if (_tags['ustensils'].length > 0) {
-                    for (const tag of _tags['ustensils']) {
-                        let count = 0;
-                        recipe.ustensils.forEach((ustensil) => {
-                            const data = ustensil.toLowerCase()
-                            if (data === tag.toLowerCase().trim()) count++
-                        })
-                        if (count === _tags['ustensils'].length) {
-                            foundRecipes.push(recipe);
-                        }
-                    }
-                }
-
-                // Ingredients
-                if (_tags['ingredients'].length > 0) {
-                    for (const tag of _tags['ingredients']) {
-                        let count = 0;
-                        recipe.ingredients.forEach((ingredient) => {
-                            const data = ingredient.ingredient.toLowerCase();
-                            if (data === tag) count++
-                        })
-                        if (count === _tags['ingredients'].length) {
+                const name = recipe.name.toLowerCase().trim();
+                const description = recipe.description.toLowerCase().trim();
+                if (name.includes(_searchTerm)) {
+                    foundRecipes.push(recipe);
+                } else if (description.includes(_searchTerm)) {
+                    foundRecipes.push(recipe);
+                } else {
+                    for (let ingredient of recipe.ingredients) {
+                        const ingName = ingredient.ingredient.toLowerCase().trim();
+                        if (ingName.includes(_searchTerm)) {
                             foundRecipes.push(recipe);
                         }
                     }
                 }
             }
-        } else {
+        }
+        else {
+            foundRecipes = _recipes;
+        }
+        return foundRecipes;
+    }
+
+    // Search recipes with tags
+    static findRecipesWithTags(_recipes, _tags) {
+        let foundRecipes = [];
+
+        for (const recipe of _recipes) {
+            let nbTypesToValid = 0;
+            let nbIsValid = 0;
+
+            if (_tags["appliances"].length > 0) {
+                nbTypesToValid++;
+                if (Algo.findAppliances(recipe.appliance, _tags["appliances"])) {
+                    nbIsValid++;
+                }
+            }
+
+            if (_tags["ustensils"].length > 0) {
+                nbTypesToValid++;
+                if (Algo.findUstensils(recipe.ustensils, _tags["ustensils"])) {
+                    nbIsValid++;
+                }
+            }
+
+            if (_tags["ingredients"].length > 0) {
+                nbTypesToValid++;
+                if (Algo.findIngredients(recipe.ingredients, _tags["ingredients"])) {
+                    nbIsValid++;
+                }
+            }
+
+            // If all types to valid is equal to the validated nb : the recipe is found
+            if ( nbTypesToValid > 0 && nbTypesToValid === nbIsValid ) {
+                foundRecipes.push(recipe);
+            }
+        }
+
+        if (foundRecipes.length === 0) {
             foundRecipes = _recipes;
         }
 
         return foundRecipes;
     }
 
+    static findAppliances(_appliance, _tags) {
+        let isValid = false;
+        let count = 0;
+        const data = _appliance.toLowerCase().trim();
+        _tags.forEach((tag) => {
+            if (tag === data) count++
+        });
+        if (count === _tags.length) isValid = true;
+        return isValid;
+    }
+
+    static findUstensils(_ustensils, _tags) {
+        let isValid = false;
+        let count = 0;
+        _ustensils.forEach((ustensil) => {
+            const data = ustensil.toLowerCase().trim();
+            _tags.forEach((tag) => {
+                if (tag === data) count++
+            })
+        });
+        if (count === _tags.length) isValid = true;
+        return isValid;;
+    }
+
+
+    static findIngredients(_ingredients, _tags) {
+        let isValid = false;
+        let count = 0;
+        _ingredients.forEach((ingredient) => {
+            const data = ingredient.ingredient.toLowerCase().trim();
+            _tags.forEach((tag) => {
+                if (tag === data) count++
+            })
+        });
+        if (count === _tags.length) isValid = true;
+
+        return isValid;
+    }
 
     static findItems(items, searchTerm) {
         let results = [];

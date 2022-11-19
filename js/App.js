@@ -25,6 +25,7 @@ class App {
         this.render(RECIPES);
 
         this.searchEvent();
+        this.searchTerm = "";
     }
 
     // Render DOM : dynamic rendering with new recipes
@@ -38,24 +39,25 @@ class App {
     // Find algorithm 
     findRecipes() {
         // Need data from RECIPES, tags, search
-        let results = Algo.findRecipesWithSearch(RECIPES, this.searchTerm);
-        results = Algo.findRecipesWithTags(results, this.tags.tags);
-        //results = setUniqueValues(results);
-        return results;
+        const results1 = Algo.findRecipesWithSearch(RECIPES, this.searchTerm);
+        const results2 = Algo.findRecipesWithTags(RECIPES, this.tags.tags);
+        const resultsIntersection = Algo.getRecipesIntersection(results1, results2);
+        return resultsIntersection;
     }
 
-    // ---- SEARCH EVENT ---- //
+    // ---- MAIN SEARCH EVENT ---- //
     searchEvent() { 
         this.search.$input.addEventListener('input', this.searchRecipes.bind(this));
     }
 
     searchRecipes(e) {
         const regexSearch = /^[A-ÿ]{3,}[A-ÿ\-\s]*$/; // At least 3 characters
-        this.searchTerm = getNormalizedString(e.target.value);
+        //this.searchTerm = getNormalizedString(e.target.value);
+        this.searchTerm = e.target.value.toLowerCase().trim();
 
         // No characters : show all the recipes
         if (this.searchTerm.length === 0) {
-            this.render(RECIPES);
+            this.render( this.findRecipes());
             this.search.hideError();
         } else if (regexSearch.test(this.searchTerm)) {
             // Valid : show the found recipes
@@ -84,7 +86,7 @@ class App {
 
         if ( newTagElt ) {
             this.removeTagEvent( newTagElt );
-            this.render(this.findRecipes());
+            this.render( this.findRecipes() );
             //this.$ingredientsInput.value = "";
         }
     }
@@ -101,8 +103,8 @@ class App {
 
         this.tags.remove(tag, type); 
         elt.parentElement.remove();
-
-        this.render(this.findRecipes());
+        
+        this.render( this.findRecipes() );
     }
 }
 

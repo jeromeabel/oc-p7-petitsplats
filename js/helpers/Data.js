@@ -9,6 +9,12 @@ export function getNormalizedString(_str) {
     return _str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().trim();
 }
 
+export function findText(_data, _search) {
+    const data = getNormalizedString(_data);
+    const search = getNormalizedString(_search);
+    return data.includes(search);
+}
+
 export function capitalize(_str) {
     return _str.charAt(0).toUpperCase() + _str.slice(1)
 }
