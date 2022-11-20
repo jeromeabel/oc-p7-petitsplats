@@ -1,6 +1,5 @@
-/*
- * Add recipes cards to the recipes section
- */
+// -------- RECIPES --------- //
+// Handle all recipes with the DOM
 export class Recipes {
 
     constructor() {
@@ -11,17 +10,17 @@ export class Recipes {
         this.$wrapper.innerHTML = "";
         const cards = _recipes.map((recipe) => new RecipeCard(recipe));
         cards.forEach(
-            (card) => this.$wrapper.appendChild( card.render() )
+            (card) => this.$wrapper.appendChild(card.render())
         );
     }
 }
 
-// Recipes Card DOM generator
+// -------- RECIPECARD --------- //
+// Handle DOM view for one recipe
 class RecipeCard {
 
     constructor(data) {
         // Data
-        this.id = data.id;
         this.name = data.name;
         this.time = data.time;
         this.description = data.description;
@@ -30,7 +29,6 @@ class RecipeCard {
         // DOM
         this.$wrapper = document.createElement("div");
         this.$wrapper.classList.add("card");
-        this.$wrapper.setAttribute("data-id", this.id);
     }
 
     // Add each ingredient and handle properties 
@@ -49,7 +47,7 @@ class RecipeCard {
     }
 
     // Trunk the description
-    renderDescription()  {
+    renderDescription() {
         let description = this.description;
         if (this.description.length > 200) {
             description = this.description.slice(0, 200) + "...";
@@ -57,7 +55,7 @@ class RecipeCard {
         return description;
     }
 
-    // Render all
+    // Main render
     render() {
         const ingredients = this.renderIngredients();
         const description = this.renderDescription();
@@ -66,16 +64,16 @@ class RecipeCard {
             <img class="card-img-top" src="./images/default.png" alt="${this.name}">
             <div class="card-body">
                 <div class="d-flex gap-2 justify-content-between">
-                    <h4 class="card-title">${this.name}</h4>
+                    <h3 class="fs-5">${this.name}</h3>
                     <p class="fw-bold">
-                        <i class="fa-regular fa-clock"></i> ${this.time} min
+                        <i class="fa-regular fa-clock me-1"></i> ${this.time} min
                     </p>
                 </div>
-                <div class="d-flex gap-2">
-                    <ul class="list-unstyled">
+                <div class="row card-text">
+                    <ul class="col list-unstyled">
                         ${ingredients}
                     </ul>
-                    <p class="card-description">
+                    <p class="col">
                         ${description}
                     </p>
                 </div>

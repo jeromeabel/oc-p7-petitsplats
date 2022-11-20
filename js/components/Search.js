@@ -1,3 +1,4 @@
+// Handle main search input DOM
 export class Search  {
 
     constructor() {

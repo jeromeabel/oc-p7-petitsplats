@@ -1,21 +1,13 @@
 // Helpers functions
 
-export function setUniqueValues(_arr) {
-    return new Set(_arr.flat().sort());
-}
-
 // Remove accents and uppercase
 export function getNormalizedString(_str) {
-    return _str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().trim();
+    return _str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+    //return _str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().trim();
 }
 
-export function findText(_data, _search) {
-    const data = getNormalizedString(_data);
-    const search = getNormalizedString(_search);
-    return data.includes(search);
-}
-
-export function capitalize(_str) {
+// Capitalize first letter
+export function capitalizeFirstChar(_str) {
     return _str.charAt(0).toUpperCase() + _str.slice(1)
 }
 
@@ -38,27 +30,30 @@ export function getRecipesByType(_recipes, type) {
     }
 }
 
+// Extract unique appliances from the recipes sort with accents
 export function getAppliances(_recipes) {
     const appliances = _recipes.map(
         (recipe) => recipe.appliance.toLowerCase().trim()
     );
-    return new Set(appliances.sort());
+    return new Set(appliances.sort(Intl.Collator().compare) );
 }
 
+// Extract unique ustensils from the recipes and sort with accents
 export function getUstensils(_recipes) {
     const ustensils = _recipes.map(
         (recipe) => {
             return recipe.ustensils.map(
                 (ustensil) => ustensil.toLowerCase().trim())
         });
-    return new Set(ustensils.flat().sort());
+    return new Set(ustensils.flat().sort(Intl.Collator().compare) );
 }
 
+// Extract unique ingredients from the recipes sort with accents
 export function getIngredients(_recipes) {
     const ingredients = _recipes.map(
         (recipe) => {
             return recipe.ingredients.map(
                 (ingredient) => ingredient.ingredient.toLowerCase().trim())
         });
-    return new Set(ingredients.flat().sort());
+    return new Set( ingredients.flat().sort(Intl.Collator().compare) );
 }

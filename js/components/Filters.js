@@ -1,5 +1,5 @@
-import { getRecipesByType, capitalize, getNormalizedString } from "../helpers/Data.js";
-import { Algo } from "../helpers/Algo.js";
+import { getRecipesByType, capitalizeFirstChar, getNormalizedString } from "../helpers/Data.js";
+import { findItems } from "../helpers/Algo.js";
 
 // -------- FILTERS --------- //
 export class Filters {
@@ -87,7 +87,7 @@ class Filter {
     }
 
     render(_items) {
-        this.items = _items; // Update items for searchItems
+        this.items = _items; // Update items
         this.renderItems(_items); // Render DOM list of items
     }
 
@@ -96,7 +96,7 @@ class Filter {
         // Create list
         let html = "";
         _items.forEach((item) => {
-            const itemLabel = capitalize(item);
+            const itemLabel = capitalizeFirstChar(item);
             html +=
                 `<li>
                     <button 
@@ -143,8 +143,8 @@ class Filter {
         if (searchTerms.length === 0) {
             results = this.items;
         } else if (regexSearch.test(searchTerms)) {
-            results = Algo.findItems(this.items, searchTerms);
+            results = findItems(this.items, searchTerms);
         }
-        this.renderItems(results);
+        this.renderItems( results );
     }
 }
