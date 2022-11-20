@@ -17,7 +17,7 @@ export class Filters {
     render(_recipes) {
         this.filters.forEach((filter) => {
             // Items depends on the filter type
-            const items = getRecipesByType(_recipes, filter.type);
+            const items = getRecipesByType( _recipes, filter.type );
             filter.render(items);
         });
     }
@@ -91,14 +91,14 @@ class Filter {
         this.renderItems(_items); // Render DOM list of items
     }
 
-    // Update items
+    // Render a new list of items
     renderItems(_items) {
         // Create list
         let html = "";
         _items.forEach((item) => {
             const itemLabel = capitalizeFirstChar(item);
             html +=
-                `<li>
+                `<li class="d-block">
                     <button 
                         data-app-type="${this.type}"
                         data-app-tag="${item}"
@@ -109,6 +109,27 @@ class Filter {
                 </li>`;
         });
         this.$ul.innerHTML = html;
+    }
+
+    // Update active filters from filter Search Event
+    updateActiveItems( _items ) {
+        const btnAll = this.$ul.querySelectorAll('button[data-app-event]');
+
+        btnAll.forEach( (btn) => {
+            const li = btn.parentElement;
+            const tag = getNormalizedString(btn.getAttribute("data-app-tag"));
+
+            let isActive = false;
+            for ( const it of _items ) {
+                if ( it === tag ) isActive = true;
+            }
+
+            if ( isActive ) {
+                if (li.classList.contains("d-none")) li.classList.replace('d-none', 'd-block' );
+            } else {
+                if (li.classList.contains("d-block")) li.classList.replace('d-block', 'd-none' );
+            }
+        });
     }
 
     // ---- EVENTS ---- //
@@ -135,7 +156,7 @@ class Filter {
         }
     }
 
-    // Find and update items according to the search input
+    // Find and update items visibility according to the search input
     searchItems(e) {
         const regexSearch = /^[A-ÿ]{1,}$/; // At least 1 characters
         const searchTerms = getNormalizedString(e.target.value);
@@ -143,8 +164,8 @@ class Filter {
         if (searchTerms.length === 0) {
             results = this.items;
         } else if (regexSearch.test(searchTerms)) {
-            results = findItems(this.items, searchTerms);
+            results = findItems( this.items, searchTerms );
         }
-        this.renderItems( results );
+        this.updateActiveItems( results );
     }
 }
