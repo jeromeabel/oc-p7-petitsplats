@@ -47,26 +47,13 @@ export function findRecipesWithTags( _recipes, _tags ) {
     }
 
     // If tags are not empty
-    if ( typesToValid.length > 0 ) {
-        for ( const recipe of _recipes ) {
+    if (typesToValid.length > 0) {
+        for (const recipe of _recipes) {
             let nbIsValid = 0;
 
-            if ( typesToValid.includes("appliances") ) {
-                if (findAppliances(recipe.appliance, _tags["appliances"]))  {
-                    nbIsValid++;
-                }
-            }
-
-            if ( typesToValid.includes("ustensils") ) {
-                if (findUstensils(recipe.ustensils, _tags["ustensils"]))  {
-                    nbIsValid++;
-                }
-            }
-
-            if ( typesToValid.includes("ingredients") ) {
-                if (findIngredients(recipe.ingredients, _tags["ingredients"]))  {
-                    nbIsValid++;
-                }
+            // Find tags according to the type
+            for (const type of typesToValid) {
+                if (findTags(recipe, _tags[type], type)) nbIsValid++;
             }
 
             // Check if all tags are in the recipe
@@ -81,43 +68,39 @@ export function findRecipesWithTags( _recipes, _tags ) {
     return foundRecipes;
 }
 
-export function findAppliances( _appliance, _tags) {
-    let isValid = false;
-    let count = 0;
-    const data = _appliance.toLowerCase().trim();
-    _tags.forEach((tag) => {
-        if (tag === data) count++
-    });
-    if (count === _tags.length) isValid = true;
-    return isValid;
-}
 
-export function findUstensils(_ustensils, _tags) {
+// Check tags and types of the recipe
+function findTags(_recipe, _tags, _type) {
     let isValid = false;
     let count = 0;
-    _ustensils.forEach((ustensil) => {
-        const data = ustensil.toLowerCase().trim();
+
+    if ( _type === "appliances" ) {
+        const data = _recipe.appliance.toLowerCase().trim();
         _tags.forEach((tag) => {
             if (tag === data) count++
         })
-    });
+    } else if ( _type === "ustensils" ) {
+        _recipe.ustensils.forEach((ustensil) => {
+            const data = ustensil.toLowerCase().trim();
+            _tags.forEach((tag) => {
+                if (tag === data) count++
+            })
+        });
+    } else if ( _type === "ingredients" ) {
+        _recipe.ingredients.forEach((ingredient) => {
+            const data = ingredient.ingredient.toLowerCase().trim();
+            _tags.forEach((tag) => {
+                if (tag === data) count++
+            })
+        });
+    }
+   
+    // Check if all the tags (ingredients, ustensils, appliances) are in the recipe
     if (count === _tags.length) isValid = true;
+
     return isValid;
 }
 
-export function findIngredients(_ingredients, _tags) {
-    let isValid = false;
-    let count = 0;
-    _ingredients.forEach((ingredient) => {
-        const data = ingredient.ingredient.toLowerCase().trim();
-        _tags.forEach((tag) => {
-            if (tag === data) count++
-        })
-    });
-    if (count === _tags.length) isValid = true;
-
-    return isValid;
-}
 
 export function findItems(items, searchTerm) {
     const results = [];
