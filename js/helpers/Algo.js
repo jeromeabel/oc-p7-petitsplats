@@ -28,7 +28,7 @@ export function findRecipesWithSearch( _recipes, _searchTerm ) {
             }
         }
     } else {
-        foundRecipes = _recipes;
+        foundRecipes = _recipes; // Reset
     }
 
     return foundRecipes;
@@ -75,7 +75,7 @@ export function findRecipesWithTags( _recipes, _tags ) {
             }
         }
     }  else {
-        foundRecipes = _recipes;
+        foundRecipes = _recipes; // Reset
     }
     
     return foundRecipes;
