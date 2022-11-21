@@ -17,11 +17,23 @@ export function findRecipesWithSearch( _recipes, _searchTerm ) {
     let foundRecipes = [];
 
     if ( _searchTerm.length > 0 ) {
+        const searchTerm = getNormalizedString( _searchTerm );
 
-        for (const recipe of _recipes) {
-            const isfoundName = findText( recipe.name, _searchTerm );
-            const isfoundDescription = findText( recipe.description, _searchTerm );
-            const isfoundIngredients = findTextIngredients( recipe.ingredients, _searchTerm );
+        for (const recipe of _recipes) { 
+            // Find search & name
+            const name = getNormalizedString( recipe.name );
+            const isfoundName = name.includes(searchTerm);
+
+            // Find search & description
+            const description = getNormalizedString( recipe.description );
+            const isfoundDescription = description.includes(searchTerm);
+
+             // Find search & ingredients
+            let isfoundIngredients = false;
+            for ( let ingredient of recipe.ingredients ) {
+                const ingredientName = getNormalizedString( recipe.description );
+                if ( ingredientName.includes(searchTerm) ) isfoundIngredients = true;
+            }
 
             if ( isfoundName || isfoundDescription || isfoundIngredients ) {
                 foundRecipes.push(recipe);
@@ -101,7 +113,6 @@ function findTags(_recipe, _tags, _type) {
     return isValid;
 }
 
-
 export function findItems(items, searchTerm) {
     const results = [];
     for (let item of items) {
@@ -110,18 +121,4 @@ export function findItems(items, searchTerm) {
         }
     }
     return results;
-}
-
-export function findText( _text, _search ) {
-    const text = getNormalizedString( _text );
-    const search = getNormalizedString( _search );
-    return text.includes(search);
-}
-
-export function findTextIngredients( _ingredients, _search) {
-    let isFound = false;
-    for ( let ingredient of _ingredients ) {
-        if ( findText( ingredient.ingredient, _search ) ) isFound = true;
-    }
-    return isFound;
 }
