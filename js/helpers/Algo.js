@@ -17,22 +17,23 @@ export function findRecipesWithSearch( _recipes, _searchTerm ) {
     let foundRecipes = [];
 
     if ( _searchTerm.length > 0 ) {
+        const searchTerm = getNormalizedString( _searchTerm );
 
-        for (const recipe of _recipes) {
-            const isfoundName = findText( recipe.name, _searchTerm );
-            const isfoundDescription = findText( recipe.description, _searchTerm );
-            const isfoundIngredients = findTextIngredients( recipe.ingredients, _searchTerm );
+        foundRecipes = _recipes.filter( recipe => {
+            const isFoundName = getNormalizedString( recipe.name ).includes( searchTerm );
+            const isFoundAppliance = getNormalizedString( recipe.description ).includes( searchTerm );
+            const ingArray = recipe.ingredients.map( ing => getNormalizedString( ing.ingredient ));
+            const isFoundIngredients = ingArray.includes( searchTerm );
+            return isFoundName || isFoundAppliance || isFoundIngredients;
+        });
 
-            if ( isfoundName || isfoundDescription || isfoundIngredients ) {
-                foundRecipes.push(recipe);
-            }
-        }
     } else {
         foundRecipes = _recipes; // Reset
     }
 
     return foundRecipes;
 }
+
 
 // Search tags into the recipes ingredients, ustensils and appliances
 export function findRecipesWithTags( _recipes, _tags ) {

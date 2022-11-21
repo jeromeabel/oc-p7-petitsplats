@@ -40,7 +40,14 @@ class App {
     // Find algorithm
     // Data : RECIPES, searchTerm, tags
     findRecipes() {
+
+        // Performance benchmark main search
+        console.group("SEARCH ALGO v2 : ", this.searchTerm);
+        console.time();
         const results1 = findRecipesWithSearch(RECIPES, this.searchTerm);
+        console.timeEnd();
+        console.groupEnd();
+
         const results2 = findRecipesWithTags(RECIPES, this.tags.tags);
         const resultsIntersection = getRecipesIntersection(results1, results2);        
         return resultsIntersection;
