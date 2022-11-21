@@ -42,11 +42,11 @@ class App {
     findRecipes() {
         
         // Performance benchmark main search
-        console.group("SEARCH ALGO v1 : ", this.searchTerm);
-        console.time();
+        //console.group("SEARCH ALGO v1 : ", this.searchTerm);
+        //console.time();
         const results1 = findRecipesWithSearch(RECIPES, this.searchTerm);
-        console.timeEnd();
-        console.groupEnd();
+        //console.timeEnd();
+        //console.groupEnd();
 
         const results2 = findRecipesWithTags(RECIPES, this.tags.tags);
         const resultsIntersection = getRecipesIntersection(results1, results2);
