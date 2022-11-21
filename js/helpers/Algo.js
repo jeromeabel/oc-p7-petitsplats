@@ -31,7 +31,7 @@ export function findRecipesWithSearch( _recipes, _searchTerm ) {
              // Find search & ingredients
             let isfoundIngredients = false;
             for ( let ingredient of recipe.ingredients ) {
-                const ingredientName = getNormalizedString( recipe.description );
+                const ingredientName = getNormalizedString( ingredient.ingredient );
                 if ( ingredientName.includes(searchTerm) ) isfoundIngredients = true;
             }
 
