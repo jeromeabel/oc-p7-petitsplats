@@ -1,13 +1,12 @@
 # PROJECT MANAGEMENT
 
 ## TODO
-- [x] Interface Bootstrap 80% + validateur w3c
-- [ ] Interface Bootstrap 20% : Tags
+- [x] Interface Bootstrap + validateur w3c
 - [x] Algo - doc : décrire 2 versions : boucles natives for/while VS foreach/filter/map/reduce (+PDF Fiche)
 - [x] Algo - doc : algorigramme
-- [ ] Algo - implémentation : 2 branches (+PDF Cas utilisation) - search tag (même version)
-- [ ] Algo - performances (uniquement la recherche principale, pas les filtres): Jsben.ch, console.time / console.timeEnd()
-- [ ] Algo - doc : mise à jour, algorigrame, résultats perf et recommandations
+- [x] Algo - implémentation : 2 branches (+PDF Cas utilisation) - search tag (même version)
+- [x] Algo - performances (uniquement la recherche principale, pas les filtres): Jsben.ch, console.time / console.timeEnd()
+- [x] Algo - doc : mise à jour, algorigrame, résultats perf et recommandations
 
 ## Resources
 
