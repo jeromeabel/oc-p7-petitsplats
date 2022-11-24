@@ -83,6 +83,12 @@ export function findRecipesWithTags( _recipes, _tags ) {
 
 // Check tags and types of the recipe
 function findTags(_recipe, _tags, _type) {
+
+    // Autre solution : 
+    // _tags.every( tag => _recipe.appliance === tag ) )
+    // _tags.every( tag => _recipe.ustensils.includes(tag) )
+    // _tags.every( tag => _recipe.ingredients[ingredient].includes(tag) )
+
     let isValid = false;
     let count = 0;
 
