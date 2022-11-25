@@ -12,3 +12,9 @@ Développez un algorithme de recherche en JavaScript
 ## Mission
 - Interface Boostrap
 - Algo de recherche & performance
+
+## Axes d'amélioration
+- Tags algo : every
+- Tableaux intermédiaires ID
+- Mise à jour tableaux (search, tags)
+- Communication event dispatchEvent ?
