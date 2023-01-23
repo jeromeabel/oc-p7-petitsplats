@@ -1,6 +1,16 @@
-# PROJECT MANAGEMENT
+# PROJECT
 
-## TODO
+## Contexte
+- Entreprise "Les Petits Plats" : site de recettes de cuisine 
+- Moi, freelance, dev front-end mission de 3 mois
+
+## Axes d'amélioration
+- Tags algo : every
+- Tableaux intermédiaires ID
+- Mise à jour tableaux (search, tags)
+- Communication event dispatchEvent ?
+
+## TASKS
 - [x] Interface Bootstrap + validateur w3c
 - [x] Algo - doc : décrire 2 versions : boucles natives for/while VS foreach/filter/map/reduce (+PDF Fiche)
 - [x] Algo - doc : algorigramme

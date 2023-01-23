@@ -1,20 +1,15 @@
 # oc-p7-petitsplats
 Développez un algorithme de recherche en JavaScript
 
+## Démo
+-  https://jeromeabel.github.io/oc-p7-petitsplats/
+
+## Contexte
+Formation OpenClassrooms
+
+- Créer une interface en Bootstrap selon une maquette
+- Algorithme de recherche & performance en Javascript
+
 ## Compétences
 - Analyser un problème informatique
 - Développer un algorithme pour résoudre un problème
-
-## Contexte
-- Entreprise "Les Petits Plats" : site de recettes de cuisine 
-- Moi, freelance, dev front-end mission de 3 mois
-
-## Mission
-- Interface Boostrap
-- Algo de recherche & performance
-
-## Axes d'amélioration
-- Tags algo : every
-- Tableaux intermédiaires ID
-- Mise à jour tableaux (search, tags)
-- Communication event dispatchEvent ?
