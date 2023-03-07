@@ -4,6 +4,11 @@
 - Entreprise "Les Petits Plats" : site de recettes de cuisine 
 - Moi, freelance, dev front-end mission de 3 mois
 
+## Compétences
+- Analyser un problème informatique
+- Développer un algorithme pour résoudre un problème
+
+
 ## Axes d'amélioration
 - Tags algo : every
 - Tableaux intermédiaires ID

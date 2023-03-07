@@ -1,15 +1,23 @@
+![HTML](https://img.shields.io/badge/HTML-FFFFFF?logo=html5)
+![CSS](https://img.shields.io/badge/CSS-459ACD?logo=css3)
+![Boostrap](https://img.shields.io/badge/bootstrap-fff?logo=bootstrap)
+![JS](https://img.shields.io/badge/JS-000?logo=javascript)
+
 # oc-p7-petitsplats
-Développez un algorithme de recherche en JavaScript
+This project is the n°7 in the [OpenClassrooms Front-End learning path](https://openclassrooms.com/fr/paths/516-developpeur-dapplication-javascript-react).
 
-## Démo
--  https://jeromeabel.github.io/oc-p7-petitsplats/
+I work for the company "Les Petits Plats" which wants to create a site of cooking recipes. I have to create the interface in Bootstrap according to the mockup. And I have to develop a powerful search algorithm in JavaScript.
 
-## Contexte
-Formation OpenClassrooms
+## ✨ Demo
+- https://jeromeabel.github.io/oc-p7-petitsplats/
 
-- Créer une interface en Bootstrap selon une maquette
-- Algorithme de recherche & performance en Javascript
+![Screenshot](assets/screen.png)
 
-## Compétences
-- Analyser un problème informatique
-- Développer un algorithme pour résoudre un problème
+## 🚀 Usage
+Just open the index.html in your browser and type some letters or words in the search bar. You can also choose in the filters to find recipes.
+
+## 👤 Author
+- [@jeromeabel](https://github.com/jeromeabel)
+
+## 📝 License
+- [GNU--GPL--3](https://www.gnu.org/licenses/gpl-3.0.fr.html)
