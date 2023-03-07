@@ -11,7 +11,7 @@ I work for the company "Les Petits Plats" which wants to create a site of cookin
 ## ✨ Demo
 - https://jeromeabel.github.io/oc-p7-petitsplats/
 
-![Screenshot](assets/screen.png)
+![Screenshot](images/screen.png)
 
 ## 🚀 Usage
 Just open the index.html in your browser and type some letters or words in the search bar. You can also choose in the filters to find recipes.
